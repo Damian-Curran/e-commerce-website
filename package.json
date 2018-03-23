@@ -1,0 +1,19 @@
+{
+  "name": "e-commerce-website",
+  "version": "1.0.0",
+  "description": "A website architecturally composed of Angular, Node and MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Damian404/e-commerce-website.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Damian404/e-commerce-website/issues"
+  },
+  "homepage": "https://github.com/Damian404/e-commerce-website#readme"
+}
