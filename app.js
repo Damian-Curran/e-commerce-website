@@ -7,6 +7,14 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 
+// load mongoose package
+var mongoose = require('mongoose');
+
+// connect to MongoDB
+mongoose.connect('mongodb://localhost/e-commerce')
+.then(() =>  console.log('connection succesful'))
+.catch((err) => console.error(err));
+
 var app = express();
 
 // view engine setup

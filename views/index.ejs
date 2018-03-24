@@ -1,5 +1,31 @@
 <!DOCTYPE html>
-<html>
-    <head></head>
-    <body>Serving Index</body>
-</html>
+<html ng-app="app">
+        <head>
+          <title><%= title %></title>
+        </head>
+        <body>
+          <h1><%= title %></h1>
+      
+          <ng-view></ng-view>
+      
+          <!-- Libraries -->
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
+
+          <!-- Template -->
+      <script type="text/ng-template" id="/todos.html">
+        <ul>
+          <li ng-repeat="todo in todos">
+            {{todo.name}}
+            <button ng-click="edit($index)">edit</button>
+
+            <input type="text" ng-model="todo.name">
+            <button ng-click="update($index)">Update</button>
+          </li>
+        </ul>
+      </script>
+
+      
+        </body>
+      </html>
