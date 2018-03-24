@@ -19,4 +19,12 @@ router.post('/', function(req, res, next) {
     });
   });
 
+/* GET /products/id */
+router.get('/:id', function(req, res, next) {
+    Product.findById(req.params.id, function (err, post) {
+      if (err) return next(err);
+      res.json(post);
+    });
+  });
+
 module.exports = router;

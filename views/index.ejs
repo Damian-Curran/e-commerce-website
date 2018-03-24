@@ -18,10 +18,17 @@
         Search: <input type="text" ng-model="search.name">
         <ul>
           <li ng-repeat="product in products | filter: search">
-              {{product.name}}
+                <div ng-click="go(product._id)">
+                        {{product.name}}
+                </div>
           </li>
         </ul>
         New task <input type="text" ng-model="newProduct"><button ng-click="save()">Create</button>
+      </script>
+
+      <script type="text/ng-template" id="/productDetails.html">
+        <h1>{{ product.name }}</h1><br><br>
+        <a href="/">Cancel</a>
       </script>
 
     <script>
@@ -49,6 +56,12 @@
               $scope.newProduct = ''; // clear textbox
             });
           }
+          $scope.go = function(index){
+            $location.url(index);
+          }
+        }])
+        .controller('ProductDetailCtrl', ['$scope', '$routeParams', 'Products', '$location', function ($scope, $routeParams, Products, $location) {
+          $scope.product = Products.get({id: $routeParams.id });
         }])
         //---------------
         // Routes
@@ -59,6 +72,10 @@
               templateUrl: '/products.html',
               controller: 'ProductController'
             })
+            .when('/:id', {
+              templateUrl: '/productDetails.html',
+              controller: 'ProductDetailCtrl'
+           });
         }]);
     </script>
   </body>
