@@ -23,7 +23,10 @@
                 </div>
           </li>
         </ul>
-        New Product <input type="text" ng-model="newProduct"><button ng-click="save()">Create</button>
+        Product Name <input type="text" ng-model="newProduct">
+        <br><br>
+        Product Description <input type="text" ng-model="Description">
+        <button ng-click="save()">Create</button>
       </script>
 
       <script type="text/ng-template" id="/productDetails.html">
@@ -53,7 +56,7 @@
           $scope.products = Products.query();
           $scope.save = function(){
             if(!$scope.newProduct || $scope.newProduct.length < 1) return;
-            var product = new Products({ name: $scope.newProduct });
+            var product = new Products({ name: $scope.newProduct, description: $scope.Description });
             product.$save(function(){
               $scope.products.push(product);
               $scope.newProduct = ''; // clear textbox
