@@ -23,11 +23,15 @@
                 </div>
           </li>
         </ul>
-        New task <input type="text" ng-model="newProduct"><button ng-click="save()">Create</button>
+        New Product <input type="text" ng-model="newProduct"><button ng-click="save()">Create</button>
       </script>
 
       <script type="text/ng-template" id="/productDetails.html">
-        <h1>{{ product.name }}</h1><br><br>
+        <h1>{{ product.name }}</h1>
+        Description: <textarea ng-model="product.description"></textarea><br><br>
+        
+        <button ng-click="update()">Update</button>
+        <br><br>
         <a href="/">Cancel</a>
       </script>
 
@@ -50,7 +54,6 @@
           $scope.save = function(){
             if(!$scope.newProduct || $scope.newProduct.length < 1) return;
             var product = new Products({ name: $scope.newProduct });
-            console.log(product);
             product.$save(function(){
               $scope.products.push(product);
               $scope.newProduct = ''; // clear textbox
@@ -62,6 +65,11 @@
         }])
         .controller('ProductDetailCtrl', ['$scope', '$routeParams', 'Products', '$location', function ($scope, $routeParams, Products, $location) {
           $scope.product = Products.get({id: $routeParams.id });
+          $scope.update = function(){
+            Products.update({id: $scope.product._id}, $scope.product, function(){
+              $location.url('/');
+            });
+          }
         }])
         //---------------
         // Routes
