@@ -1,31 +1,64 @@
 <!DOCTYPE html>
 <html ng-app="app">
-        <head>
-          <title><%= title %></title>
-        </head>
-        <body>
-          <h1><%= title %></h1>
-      
-          <ng-view></ng-view>
-      
-          <!-- Libraries -->
-          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
-          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
-          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
+  <head>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1><%= title %></h1>
 
-          <!-- Template -->
-      <script type="text/ng-template" id="/todos.html">
+    <ng-view></ng-view>
+
+    <!-- Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
+
+      <!-- Template -->
+      <script type="text/ng-template" id="/products.html">
         <ul>
-          <li ng-repeat="todo in todos">
-            {{todo.name}}
-            <button ng-click="edit($index)">edit</button>
-
-            <input type="text" ng-model="todo.name">
-            <button ng-click="update($index)">Update</button>
+          <li ng-repeat="product in products">
+              {{product.name}}
           </li>
         </ul>
+        New task <input type="text" ng-model="newProduct"><button ng-click="save()">Create</button>
       </script>
 
-      
-        </body>
-      </html>
+    <script>
+      angular.module('app', ['ngRoute', 'ngResource'])
+        //---------------
+        // Services
+        //---------------
+        .factory('Products', ['$resource', function($resource){
+          return $resource('/products/:id', null, {
+            'update': { method:'PUT' }
+          });
+        }])
+        //---------------
+        // Controllers
+        //---------------
+        .controller('ProductController', ['$scope', '$routeParams', 'Products', '$location', function ($scope, $routeParams, Products, $location) {
+          $scope.editing = [];
+          $scope.products = Products.query();
+          $scope.save = function(){
+            if(!$scope.newProduct || $scope.newProduct.length < 1) return;
+            var product = new Products({ name: $scope.newProduct });
+            console.log(product);
+            product.$save(function(){
+              $scope.products.push(product);
+              $scope.newProduct = ''; // clear textbox
+            });
+          }
+        }])
+        //---------------
+        // Routes
+        //---------------
+        .config(['$routeProvider', function ($routeProvider, $locationProvider) {
+          $routeProvider
+            .when('/', {
+              templateUrl: '/products.html',
+              controller: 'ProductController'
+            })
+        }]);
+    </script>
+  </body>
+</html>

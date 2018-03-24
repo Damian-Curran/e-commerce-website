@@ -6,9 +6,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
+var products = require('./routes/products');
 
 // load mongoose package
 var mongoose = require('mongoose');
+
+// Use native Node promises
+mongoose.Promise = global.Promise;
 
 // connect to MongoDB
 mongoose.connect('mongodb://localhost/e-commerce')
@@ -21,6 +25,9 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use('/', routes);
+app.use(bodyParser.json());
 
+app.use('/', routes);
+app.use('/products', products);
+  
 module.exports = app;
