@@ -4,7 +4,6 @@
     <title><%= title %></title>
   </head>
   <body>
-    <h1><%= title %></h1>
 
     <ng-view></ng-view>
 
@@ -15,6 +14,8 @@
 
       <!-- Template -->
       <script type="text/ng-template" id="/products.html">
+        <h1><%= title %></h1>
+        <button ng-click="go2()">Create Item</button>
         Search: <input type="text" ng-model="search.name">
         <ul>
           <li ng-repeat="product in products | filter: search">
@@ -23,10 +24,6 @@
                 </div>
           </li>
         </ul>
-        Product Name <input type="text" ng-model="newProduct">
-        <br><br>
-        Product Description <input type="text" ng-model="Description">
-        <button ng-click="save()">Create</button>
       </script>
 
       <script type="text/ng-template" id="/productDetails.html">
@@ -36,6 +33,14 @@
         <button ng-click="update()">Update</button>
         <br><br>
         <a href="/">Cancel</a>
+      </script>
+
+      <script type="text/ng-template" id="/createProduct.html">
+        <h1>Enter Product Details</h1>
+        Product Name <input type="text" ng-model="newProduct">
+        <br><br>
+        Product Description <input type="text" ng-model="Description">
+        <button ng-click="save()">Create</button>
       </script>
 
     <script>
@@ -54,22 +59,31 @@
         .controller('ProductController', ['$scope', '$routeParams', 'Products', '$location', function ($scope, $routeParams, Products, $location) {
           $scope.editing = [];
           $scope.products = Products.query();
-          $scope.save = function(){
-            if(!$scope.newProduct || $scope.newProduct.length < 1) return;
-            var product = new Products({ name: $scope.newProduct, description: $scope.Description });
-            product.$save(function(){
-              $scope.products.push(product);
-              $scope.newProduct = ''; // clear textbox
-            });
-          }
+          
           $scope.go = function(index){
             $location.url(index);
+          }
+          $scope.go2 = function(){
+            $location.url('/hello');
           }
         }])
         .controller('ProductDetailCtrl', ['$scope', '$routeParams', 'Products', '$location', function ($scope, $routeParams, Products, $location) {
           $scope.product = Products.get({id: $routeParams.id });
           $scope.update = function(){
             Products.update({id: $scope.product._id}, $scope.product, function(){
+              $location.url('/');
+            });
+          }
+        }])
+        .controller('CreateProductController', ['$scope', '$routeParams', 'Products', '$location', function ($scope, $routeParams, Products, $location) {
+          $scope.products = Products.query();
+          $scope.save = function(){
+            if(!$scope.newProduct || $scope.newProduct.length < 1) return;
+            var product = new Products({ name: $scope.newProduct, description: $scope.Description });
+            product.$save(function(){
+              $scope.products.push(product);
+              $scope.newProduct = ''; // clear textbox
+              $scope.Description = ''; // clear textbox
               $location.url('/');
             });
           }
@@ -82,6 +96,10 @@
             .when('/', {
               templateUrl: '/products.html',
               controller: 'ProductController'
+            })
+            .when('/hello', {
+              templateUrl: '/createProduct.html',
+              controller: 'CreateProductController'
             })
             .when('/:id', {
               templateUrl: '/productDetails.html',
