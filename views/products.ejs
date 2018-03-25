@@ -1,0 +1,10 @@
+<button ng-click="go2()">Create Item</button>
+<button ng-click="register()">Register</button>
+Search: <input type="text" ng-model="search.name">
+<ul>
+  <li ng-repeat="product in products | filter: search">
+        <div ng-click="go(product._id)">
+                {{product.name}}
+        </div>
+  </li>
+</ul>
