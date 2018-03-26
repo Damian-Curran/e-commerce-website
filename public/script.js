@@ -45,8 +45,8 @@ angular.module('app', ['ngRoute', 'ngResource'])
   $scope.go = function(index){
     $location.url(index);
   }
-  $scope.go2 = function(){
-    $location.url('/hello');
+  $scope.createItem = function(){
+    $location.url('/createItem');
   }
   $scope.register = function(){
     $location.url('/register');
@@ -77,14 +77,12 @@ angular.module('app', ['ngRoute', 'ngResource'])
   }
 }])
 .controller('RegisterController', ['$scope', '$routeParams', 'Users', '$location', function ($scope, $routeParams, Users, $location) {
-  $scope.users = Users.query();
   $scope.save = function(){
     if($scope.name != null && $scope.username != null && $scope.email != null && $scope.password != null && $scope.password2 != null){
       var user = new Users({ name: $scope.name, username: $scope.username, email: $scope.email, password: $scope.password, password2: $scope.password2 });
       $scope.name = "test";
       //$location.url('/');
       user.$save(function(){
-        $scope.users.push(user);
       });
     }
     else{
@@ -105,13 +103,17 @@ angular.module('app', ['ngRoute', 'ngResource'])
       templateUrl: '/views/products.ejs',
       controller: 'ProductController'
     })
-    .when('/hello', {
+    .when('/createItem', {
       templateUrl: '/views/createProduct.ejs',
       controller: 'CreateProductController'
     })
     .when('/register', {
       templateUrl: '/views/register.ejs',
       controller: 'RegisterController'
+    })
+    .when('/login', {
+      templateUrl: '/views/login.ejs',
+      controller: 'loginController'
     })
     .when('/:id', {
       templateUrl: '/views/productDetails.ejs',
