@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-var User = require('../models/user');
+var User = require('../models/User.js');
 
 /* GET /users listing. */
 router.get('/', function(req, res, next) {
@@ -13,13 +13,28 @@ router.get('/', function(req, res, next) {
     });
   });
 
-/* GET /users/id */
-router.get('/:id', function(req, res, next) {
-    User.findById(req.params.id, function (err, post) {
-      if (err) return next(err);
-      res.json(post);
-    });
-  });
+/* GET /users/email */
+router.get('/:email', function(req, res, next) {
+	});
+	
+	/* PUT /users/:id */
+router.put('/:email', function(req, res, next) {
+	User.find(req.params.email, function (err, post) {
+		if (err) return next(err);
+
+		User.comparePassword(req.body.password, post[0].password, function(err, isMatch){
+			if(err) throw err;
+			if(isMatch){
+				console.log("match");
+
+				res.json(post[0]);
+			} else {
+				console.log("invalid");
+			}
+		})
+		//res.json(post);
+	});
+});
 
 // Register User
 router.post('/', function(req, res){

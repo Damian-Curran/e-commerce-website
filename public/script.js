@@ -8,7 +8,8 @@ angular.module('app', ['ngRoute', 'ngResource'])
   });
 }])
 .factory('Users', ['$resource', function($resource){
-  return $resource('/users/', null, {
+  return $resource('/users/:email', null, {
+    'check': { method:'PUT' }
   });
 }])
 .factory('User', function() {
@@ -29,7 +30,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
  .factory('indexService', function() {
   return {
       siteName:'ShopTillYouDrop',
-      user: 'functionToBeAdded'
+      user: ''
   };
 })
 
@@ -39,7 +40,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
 .controller('ProductController', ['$scope', '$routeParams', 'Products', '$location', function ($scope, $routeParams, Products, $location) {
   $scope.editing = [];
   $scope.products = Products.query();
-  
+
   //myService.set("i am shared data");
 
   $scope.go = function(index){
@@ -54,6 +55,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
 }])
 .controller('ProductDetailCtrl', ['$scope', '$routeParams', 'Products', '$location', function ($scope, $routeParams, Products, $location) {
   $scope.product = Products.get({id: $routeParams.id });
+  
   $scope.update = function(){
     Products.update({id: $scope.product._id}, $scope.product, function(){
       $location.url('/');
@@ -92,6 +94,24 @@ angular.module('app', ['ngRoute', 'ngResource'])
 }])
 .controller('indexCtrl', ['$scope', '$routeParams', '$location', 'indexService', function ($scope, $routeParams, $location, indexService) {
   $scope.template = indexService;
+
+  $scope.login = function(){
+    $location.url('/login');
+  }
+}])
+.controller('loginController', ['$scope', '$routeParams', '$location', 'Users', 'indexService', function ($scope, $routeParams, $location, Users, indexService) {
+  $scope.login = function(){
+    if($scope.email != null && $scope.password != null){
+      var user = new Users({email: $scope.email, password: $scope.password});
+      
+      var response = Users.check({email: $scope.email} , user, function(){
+        //$location.url('/');
+        console.log(response);
+        indexService.user = response.username;
+        $location.url('/');
+      });
+  }
+  }
 }])
 //---------------
 // Routes
