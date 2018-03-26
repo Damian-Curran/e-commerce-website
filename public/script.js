@@ -11,7 +11,6 @@ angular.module('app', ['ngRoute', 'ngResource'])
   return $resource('/users/', null, {
   });
 }])
-
 .factory('User', function() {
   var savedData = {}
   function set(data) {
@@ -27,6 +26,12 @@ angular.module('app', ['ngRoute', 'ngResource'])
   }
  
  })
+ .factory('indexService', function() {
+  return {
+      siteName:'ShopTillYouDrop',
+      user: 'functionToBeAdded'
+  };
+})
 
 //---------------
 // Controllers
@@ -86,6 +91,9 @@ angular.module('app', ['ngRoute', 'ngResource'])
       $scope.name = "failed";
     }
   }
+}])
+.controller('indexCtrl', ['$scope', '$routeParams', '$location', 'indexService', function ($scope, $routeParams, $location, indexService) {
+  $scope.template = indexService;
 }])
 //---------------
 // Routes

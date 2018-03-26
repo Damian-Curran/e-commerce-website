@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html ng-app="app" ng-controller="indexCtrl">
   <head>
-    <title><%= title %></title>
+    <title></title>
     <link rel="stylesheet" href="//rawgit.com/twbs/bootstrap/v3.3.1/dist/css/bootstrap.css">
   </head>
   <body>
@@ -12,7 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.js"></script>
     <script src="/public/script.js"></script> 
 
-    <h1><%= title %></h1>
+    <h1>{{ template.siteName }} {{ template.user }}</h1>
 
     <ng-view></ng-view>
 
