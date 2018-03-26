@@ -34,6 +34,25 @@ angular.module('app', ['ngRoute', 'ngResource'])
   };
 })
 
+.factory('Authentication', function($window) {
+  
+  return {
+
+    store_token: function(token){
+      $window.sessionStorage.setItem('token', token);
+    },
+
+
+    get_token: function(){
+      return $window.sessionStorage.getItem("token");
+    },
+
+    delete_token: function(token){
+      $window.sessionStorage.setItem('token', '');
+    }
+};
+})
+
 //---------------
 // Controllers
 //---------------
@@ -92,14 +111,20 @@ angular.module('app', ['ngRoute', 'ngResource'])
     }
   }
 }])
-.controller('indexCtrl', ['$scope', '$routeParams', '$location', 'indexService', function ($scope, $routeParams, $location, indexService) {
+.controller('indexCtrl', ['$scope', '$routeParams', '$location', 'indexService', 'Authentication', function ($scope, $routeParams, $location, indexService, Authentication) {
+  var stored = Authentication.get_token();
+  indexService.user = stored;
   $scope.template = indexService;
 
   $scope.login = function(){
     $location.url('/login');
   }
+
+  $scope.logout = function(){
+    $location.url('/logout');
+  }
 }])
-.controller('loginController', ['$scope', '$routeParams', '$location', 'Users', 'indexService', function ($scope, $routeParams, $location, Users, indexService) {
+.controller('loginController', ['$scope', '$routeParams', '$location', 'Users', 'indexService', 'Authentication', function ($scope, $routeParams, $location, Users, indexService, Authentication) {
   $scope.login = function(){
     if($scope.email != null && $scope.password != null){
       var user = new Users({email: $scope.email, password: $scope.password});
@@ -107,11 +132,18 @@ angular.module('app', ['ngRoute', 'ngResource'])
       var response = Users.check({email: $scope.email} , user, function(){
         //$location.url('/');
         console.log(response);
-        indexService.user = response.username;
+        var store = response.username;
+        Authentication.store_token(store);
+        indexService.user = store;
         $location.url('/');
       });
   }
   }
+}])
+.controller('logoutController', ['$scope', '$routeParams', '$location', 'Users', 'indexService', 'Authentication', function ($scope, $routeParams, $location, Users, indexService, Authentication) {
+  var stored = Authentication.get_token();
+  indexService.user = '';
+  Authentication.delete_token(stored);
 }])
 //---------------
 // Routes
@@ -134,6 +166,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
     .when('/login', {
       templateUrl: '/views/login.ejs',
       controller: 'loginController'
+    })
+    .when('/logout', {
+      templateUrl: '/views/logout.ejs',
+      controller: 'logoutController'
     })
     .when('/:id', {
       templateUrl: '/views/productDetails.ejs',
