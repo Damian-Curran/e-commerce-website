@@ -14,8 +14,8 @@
 
     <h1>{{ template.siteName }} {{ template.user }}</h1>
 
-    <div ng-click="login()">Login</div>
-    <div ng-click="logout()">Logout</div>
+    <div ng-show=" template.user == '' " ng-click="login()">Login</div>
+    <div ng-show=" template.user != '' " ng-click="logout()">Logout</div>
 
     <ng-view></ng-view>
 
