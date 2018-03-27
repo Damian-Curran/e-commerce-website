@@ -1,23 +1,41 @@
+<!--
 <h1>Enter Product Details</h1>
 Product Name <input type="text" ng-model="newProduct">
 <br><br>
 Product Description <input type="text" ng-model="Description">
 <button ng-click="save()">Create</button>
+-->
 
 <br><br>
 <br><br>
 
-<form ng-submit="Submit();">
-    <label class="btn btn-success">
-        Browse
-        <input type="file" ng-disabled="uploading" file-model="file.upload" name="myfile" style="display: none;" onchange="angular.element(this).scope().photoChanged(this.files)">
-    </label>
-    <br>
-    <br>
-    <button ng-disabled="uploading" type="submit" class="btn btn-primary">Upload</button>
+<form method="post" enctype="multipart/form-data" action="/">
+    <div class="form-group row" >
+        <div class="col-md-1" style="float: left;">
+            <label for="title" class="col-sm-2 col-form-label" >Title</label>
+        </div>
+        <div class="col-sm-3" style="float: left;">
+            <input type="text" name="title" placeholder="title" class="form-control">
+        </div>
+    </div>
+    <div class="form-group row" >
+        <div class="col-lg-2" style="float: left;">
+            <input type="file" name="upl" class="form-control-file">
+        </div>
+    </div>
+    <div class="form-group row" >
+        <div class="col-lg-2" style="float: left;">
+            <input type="file" name="upl1" class="form-control-file">
+        </div>
+    </div>
+    <div class="form-group row" >
+        <div class="col-lg-2" style="float: left;">
+            <input type="file" name="upl2" class="form-control-file">
+        </div>
+    </div>
+    <div class="form-group row" >
+        <div class="col-lg-2" style="float: left;">
+            <input type="submit" class="btn btn-primary">
+        </div>
+    </div>
 </form>
-
-<br><br>
-<br><br>
-
-<img class="mythumbnail" ng-src="{{ thumbnail.dataUrl || default }}">

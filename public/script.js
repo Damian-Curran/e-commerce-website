@@ -145,81 +145,6 @@ angular.module('app', ['ngRoute', 'ngResource'])
   indexService.user = '';
   Authentication.delete_token(stored);
 }])
-.service('uploadFile', function($http) {
-  this.upload = function(file) {
-      var fd = new FormData();
-      fd.append('myfile', file.upload);
-      console.log(file.upload);
-      return $http.post('/upload', fd, {
-          transformRequest: angular.identity,
-          headers: { 'Content-Type': undefined }
-      });
-  };
-
-})
-.directive('fileModel', ['$parse', function($parse) {
-  return {
-      restrict: 'A',
-      link: function(scope, element, attrs) {
-          var parsedFile = $parse(attrs.fileModel);
-          var parsedFileSetter = parsedFile.assign;
-
-          element.bind('change', function() {
-              scope.$apply(function() {
-                  parsedFileSetter(scope, element[0].files[0]);
-              });
-          });
-      }
-  };
-}])
-.controller('mainCtrl', function($scope, uploadFile, $timeout) {
-  $scope.file = {};
-  $scope.message = false;
-  $scope.alert = '';
-  $scope.default = 'https://thebenclark.files.wordpress.com/2014/03/facebook-default-no-profile-pic.jpg';
-
-  console.log("hello i am here in main controller");
-
-  $scope.Submit = function() {
-    console.log("hello i am here in submit");
-      $scope.uploading = true;
-      uploadFile.upload($scope.file).then(function(data) {
-          if (data.data.success) {
-              $scope.uploading = false;
-              $scope.alert = 'alert alert-success';
-              $scope.message = data.data.message;
-              $scope.file = {};
-          } else {
-              $scope.uploading = false;
-              $scope.alert = 'alert alert-danger';
-              $scope.message = data.data.message;
-              $scope.file = {};
-          }
-      });
-  };
-
-  $scope.photoChanged = function(files) {
-    console.log("hello i am here in photo changed");
-      if (files.length > 0 && files[0].name.match(/\.(png|jpeg|jpg)$/)) {
-          $scope.uploading = true;
-          var file = files[0];
-          var fileReader = new FileReader();
-          fileReader.readAsDataURL(file);
-          fileReader.onload = function(e) {
-              $timeout(function() {
-                  $scope.thumbnail = {};
-                  $scope.thumbnail.dataUrl = e.target.result;
-                  $scope.uploading = false;
-                  $scope.message = false;
-              });
-          };
-      } else {
-          $scope.thumbnail = {};
-          $scope.message = false;
-      }
-  };
-
-})
 //---------------
 // Routes
 //---------------
@@ -232,7 +157,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
     })
     .when('/createItem', {
       templateUrl: '/views/createProduct.ejs',
-      controller: 'mainCtrl'
+      controller: 'CreateProductController'
     })
     .when('/register', {
       templateUrl: '/views/register.ejs',
