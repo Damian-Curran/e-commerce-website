@@ -53,7 +53,10 @@ app.use(session({
     resave: true
 }));
 
-app.post('/', upload.any(), function(req,res){console.log(req.body); console.log(req.files);});
+app.post('/', upload.any(), function(req,res){
+    console.log(req.body); 
+    console.log(req.files);
+});
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
