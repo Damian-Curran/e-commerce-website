@@ -56,6 +56,48 @@ app.use(session({
 app.post('/', upload.any(), function(req,res){
     console.log(req.body); 
     console.log(req.files);
+
+    var c;
+    var images3;
+
+    Product.findOne({},function(err,data){
+        console.log("into product");
+  
+        if (data) {
+          console.log("if");
+          c = data.unique_id + 1;
+        }else{
+          c=1;
+        }
+  
+        if(req.files[2] == null)
+        {
+          images3 = '';
+        }
+        else{
+          images3 = req.files[2].filename;
+        }
+  
+        var product = new Product({
+  
+          unique_id:c,
+          name: req.body.title,
+          description: req.body.description,
+          image1:req.files[0].filename,
+          image2:req.files[1].filename,
+          image3:images3,
+        });
+  
+        console.log(product);
+  
+        product.save(function(){
+          if(err)
+            console.log(err);
+          else
+            res.redirect('/');
+        });
+  
+      })
 });
 
 // View Engine
