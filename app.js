@@ -87,6 +87,7 @@ app.post('/', upload.any(), function(req,res){
           image1:req.files[0].filename,
           image2:req.files[1].filename,
           image3:images3,
+          seller: req.body.user,
         });
   
         console.log(product);

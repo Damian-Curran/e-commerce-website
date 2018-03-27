@@ -7,6 +7,7 @@ var ProductSchema = new mongoose.Schema({
   image1:String,
 	image2:String,
   image3:String,
+  seller:String,
   added_date:{
 		type: Date,
 		default: Date.now
