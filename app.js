@@ -10,6 +10,7 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var multer = require('multer');
+var Product = require('./models/Product');
 
 var routes = require('./routes/index');
 var products = require('./routes/products');
