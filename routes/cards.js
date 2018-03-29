@@ -18,6 +18,16 @@ router.post('/:id', function(req, res, next) {
             res.json(err.msg);
         }
         else{
+
+            var cardNo = "**** **** **** " + token.card.last4;
+            var card = new Card({username: req.params.id, token: token.id, cardNo:cardNo, brand: token.card.brand});
+
+            Card.create(card, function (err, post) {
+                if (err) return next(err);
+                //res.json(post);
+                console.log("card created === " + post);
+              });
+
             res.json(token);
         }
     });
