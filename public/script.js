@@ -16,6 +16,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
   return $resource('/baskets/addToBasket', null, {
   });
 }])
+.factory('Cards', ['$resource', function($resource){
+  return $resource('/cards/', null, {
+  });
+}])
 .factory('User', function() {
   var savedData = {}
   function set(data) {
@@ -139,6 +143,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
   $scope.basket = function(){
     $location.url('/viewBasket');
   }
+
+  $scope.creditCard = function(){
+    $location.url('/createCard');
+  }
 }])
 .controller('loginController', ['$scope', '$routeParams', '$location', 'Users', 'indexService', 'Authentication', function ($scope, $routeParams, $location, Users, indexService, Authentication) {
   $scope.login = function(){
@@ -169,6 +177,9 @@ angular.module('app', ['ngRoute', 'ngResource'])
   $scope.itemBasket = User.query();
 
 }])
+.controller('cardController', ['$scope', '$routeParams', '$location', 'indexService', 'Authentication', '$resource', 'Cards', function ($scope, $routeParams, $location, indexService, Authentication, $resource, Cards) {
+  var user = indexService.user;
+}])
 //---------------
 // Routes
 //---------------
@@ -198,6 +209,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
     .when('/viewBasket', {
       templateUrl: '/views/basket.ejs',
       controller: 'basketController'
+    })
+    .when('/createCard', {
+      templateUrl: '/views/cardDetails.ejs',
+      controller: 'cardController'
     })
     .when('/:id', {
       templateUrl: '/views/productDetails.ejs',
