@@ -3,8 +3,6 @@ var router = express.Router();
 var stripe = require('stripe')("sk_test_VZK01VfHuuOdrwNG6E21Q7N4");
 
 router.post('/:id', function(req, res, next) {
-    console.log("req.body " + req.body);
-
     stripe.tokens.create({
         
        card: { "number": req.body.number,
@@ -15,15 +13,21 @@ router.post('/:id', function(req, res, next) {
     }, function(err, token) {
         if(err != null)
         {
-            console.log(err.message);
             res.json(err.msg);
         }
         else{
-            console.log(token);
             res.json(token);
         }
     });
+});
 
+router.post('/', function(req, res, next) {
+    stripe.charges.create({
+        amount: 3000,
+        currency: "eur",
+        source: req.body.id, // obtained with Stripe.js
+        description: "Charge for michael.thompson@example.com"
+      });
 });
 
 module.exports = router;

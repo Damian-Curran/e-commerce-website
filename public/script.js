@@ -183,7 +183,8 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   $scope.create = function(){
     var card = new Cards({number: $scope.card.number, cvc: $scope.card.cvc, month: $scope.card.exp_month, year: $scope.card.exp_year});
-    User.save(card, function(){
+    User.save(card, function(token){
+      Cards.save(token);
     });
   }
 }])
