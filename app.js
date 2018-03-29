@@ -16,6 +16,7 @@ var routes = require('./routes/index');
 var products = require('./routes/products');
 var users = require('./routes/users');
 var baskets = require('./routes/baskets');
+var cards = require('./routes/cards');
 
 // load mongoose package
 var mongoose = require('mongoose');
@@ -121,5 +122,6 @@ app.use('/', routes);
 app.use('/products', products);
 app.use('/users', users);
 app.use('/baskets', baskets);
+app.use('/cards', cards);
   
 module.exports = app;
