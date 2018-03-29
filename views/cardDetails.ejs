@@ -9,18 +9,18 @@
 
         <div class="form-row">
             <label> Credit Card Info</label>
-            <input class="card-number form-control" type='text' autocomplete='off' data-stripe='number' placeholder='Card Number' ng-model="card.number"/>
+            <input class="card-number form-control" type='text' autocomplete='off' data-stripe='number' placeholder='Card Number' ng-model="card.number" required/>
         </div>
 
         <div class="form-row">
-            <input class="card-cvc form-control" type='text' autocomplete='off' data-stripe='cvc' placeholder='CVC Code' ng-model="card.cvc"/>
+            <input class="card-cvc form-control" type='text' autocomplete='off' data-stripe='cvc' placeholder='CVC Code' ng-model="card.cvc" required/>
         </div>
 
         <div class="form-row">
             <label>Expiration Date</label>
             <br/>
-            <input class="card-expiry-month form-control" type='text' data-stripe='exp-month' placeholder='MM' ng-model="card.exp_month"/>
-            <input class="card-expiry-year form-control" type='text' data-stripe='exp-year' placeholder='YYYY' ng-model="card.exp_year"/>
+            <input class="card-expiry-month form-control" type='text' data-stripe='exp-month' placeholder='MM' ng-model="card.exp_month" required/>
+            <input class="card-expiry-year form-control" type='text' data-stripe='exp-year' placeholder='YYYY' ng-model="card.exp_year" required/>
         </div>
 
     </div>
