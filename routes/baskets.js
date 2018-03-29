@@ -14,6 +14,14 @@ router.post('/addToBasket', function(req, res, next) {
 
 router.get('/:id', function(req, res, next) {
     console.log("username = " + req.params.id);
+
+    Basket.find({username: req.params.id}, function (err, items) {
+        console.log("username = " + req.params.id);
+        console.log("items = " + items);
+        if (err) return next(err);
+
+        res.json(items);
+      });
 });
 
 module.exports = router;
