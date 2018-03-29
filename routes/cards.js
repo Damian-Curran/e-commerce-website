@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var stripe = require('stripe')("sk_test_VZK01VfHuuOdrwNG6E21Q7N4");
 
+var Card = require('../models/Card.js');
+
 router.post('/:id', function(req, res, next) {
     stripe.tokens.create({
         
