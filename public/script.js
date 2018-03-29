@@ -135,6 +135,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
   $scope.logout = function(){
     $location.url('/logout');
   }
+
+  $scope.basket = function(){
+    $location.url('/viewBasket');
+  }
 }])
 .controller('loginController', ['$scope', '$routeParams', '$location', 'Users', 'indexService', 'Authentication', function ($scope, $routeParams, $location, Users, indexService, Authentication) {
   $scope.login = function(){
@@ -156,6 +160,14 @@ angular.module('app', ['ngRoute', 'ngResource'])
   var stored = Authentication.get_token();
   indexService.user = '';
   Authentication.delete_token(stored);
+}])
+.controller('basketController', ['$scope', '$routeParams', '$location', 'indexService', 'Authentication', '$resource', function ($scope, $routeParams, $location, indexService, Authentication, $resource) {
+  var user = indexService.user;
+
+  var User = $resource('/baskets/:id', {id: user});
+  
+  $scope.itemBasket = User.query();
+
 }])
 //---------------
 // Routes
@@ -182,6 +194,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
     .when('/logout', {
       templateUrl: '/views/logout.ejs',
       controller: 'logoutController'
+    })
+    .when('/viewBasket', {
+      templateUrl: '/views/basket.ejs',
+      controller: 'basketController'
     })
     .when('/:id', {
       templateUrl: '/views/productDetails.ejs',
