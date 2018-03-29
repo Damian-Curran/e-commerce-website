@@ -13,14 +13,24 @@ router.post('/addToBasket', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-    console.log("username = " + req.params.id);
 
     Basket.find({username: req.params.id}, function (err, items) {
-        console.log("username = " + req.params.id);
-        console.log("items = " + items);
         if (err) return next(err);
 
-        res.json(items);
+        for (item in items){
+            var array = [];
+            var count = 0;
+            
+            Product.findById(items[item].product, function (err, post) {
+                count++;
+                if (err) return next(err);
+                array.push(post);
+                if(count == items.length)
+                {
+                    res.json(array);
+                }
+            });
+        }
       });
 });
 
