@@ -5,7 +5,7 @@ var Product = require('../models/Product.js');
 
 /* GET /products listing. */
 router.get('/', function(req, res, next) {
-  Product.find(function (err, products) {
+  Product.find({sold: false}, function (err, products) {
     if (err) return next(err);
     res.json(products);
   });

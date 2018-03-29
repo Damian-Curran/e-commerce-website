@@ -87,6 +87,7 @@ app.post('/', upload.any(), function(req,res){
           name: req.body.title,
           description: req.body.description,
           cost: req.body.cost,
+          sold: false,
           image1:req.files[0].filename,
           image2:req.files[1].filename,
           image3:images3,
