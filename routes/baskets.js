@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var Basket = require('../models/Basket.js');
+var Product = require('../models/Product.js');
 
 router.post('/addToBasket', function(req, res, next) {
     console.log("adding to basket");
