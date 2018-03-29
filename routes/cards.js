@@ -22,11 +22,23 @@ router.post('/:id', function(req, res, next) {
             var cardNo = "**** **** **** " + token.card.last4;
             var card = new Card({username: req.params.id, token: token.id, cardNo:cardNo, brand: token.card.brand});
 
-            Card.create(card, function (err, post) {
-                if (err) return next(err);
-                //res.json(post);
-                console.log("card created === " + post);
-              });
+            Card.find({username: req.params.id}, function (err, post) {
+                if(post[0].username == null)
+                {
+                    Card.create(card, function (err, post) {
+                        if (err) return next(err);
+                        //res.json(post);
+                    });
+                }
+                else{
+                    Card.update({username: req.params.id},{$push: {brand: token.card.brand, token: token.id, cardNo: cardNo}}, function (err, post) {
+                        if (err) return next(err);
+                        //res.json(post);
+                    });
+                }
+            });
+
+            Card.find({username: req.params.id}, function (err, post) {console.log("second find " + post)});
 
             res.json(token);
         }
