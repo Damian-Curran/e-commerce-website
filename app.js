@@ -15,6 +15,7 @@ var Product = require('./models/Product');
 var routes = require('./routes/index');
 var products = require('./routes/products');
 var users = require('./routes/users');
+var baskets = require('./routes/baskets');
 
 // load mongoose package
 var mongoose = require('mongoose');
@@ -119,5 +120,6 @@ app.use(cookieParser());
 app.use('/', routes);
 app.use('/products', products);
 app.use('/users', users);
+app.use('/baskets', baskets);
   
 module.exports = app;

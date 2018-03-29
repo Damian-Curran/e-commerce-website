@@ -12,6 +12,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
     'check': { method:'PUT' }
   });
 }])
+.factory('Basket', ['$resource', function($resource){
+  return $resource('/baskets/addToBasket', null, {
+  });
+}])
 .factory('User', function() {
   var savedData = {}
   function set(data) {
@@ -33,7 +37,6 @@ angular.module('app', ['ngRoute', 'ngResource'])
       user: ''
   };
 })
-
 .factory('Authentication', function($window) {
   
   return {
@@ -72,9 +75,18 @@ angular.module('app', ['ngRoute', 'ngResource'])
     $location.url('/register');
   }
 }])
-.controller('ProductDetailCtrl', ['$scope', '$routeParams', 'Products', '$location', function ($scope, $routeParams, Products, $location) {
+.controller('ProductDetailCtrl', ['$scope', '$routeParams', 'Products', '$location', 'Basket', 'indexService', function ($scope, $routeParams, Products, $location, Basket, indexService) {
   $scope.product = Products.get({id: $routeParams.id });
   
+  var user = indexService.user;
+
+  var basket = new Basket({username: user, product: $routeParams.id});
+
+  $scope.basket = function(){
+    Basket.save(basket, function(){
+    });
+  }
+
   $scope.update = function(){
     Products.update({id: $scope.product._id}, $scope.product, function(){
       $location.url('/');
