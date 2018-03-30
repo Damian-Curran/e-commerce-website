@@ -212,7 +212,9 @@ angular.module('app', ['ngRoute', 'ngResource'])
     details.push({totalCost: totalCost})
     //Purchase.save(details);
     User.delete();
-    
+
+    boughtItem.save(itemBasket);
+
     $scope.itemBasket = [];
     $scope.cards = [];
   }

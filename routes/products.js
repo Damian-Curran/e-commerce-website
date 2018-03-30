@@ -35,4 +35,12 @@ router.put('/:id', function(req, res, next) {
     });
   });
 
+  /* POST /products */
+router.post('/sold', function(req, res, next) {
+  Product.findByIdAndUpdate(req.body[0]._id, {sold: true}, function (err, post) {
+    if (err) return next(err);
+    //res.json(post);
+  });
+});
+
 module.exports = router;
