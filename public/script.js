@@ -183,16 +183,12 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
     Purchase.query({id: user}, function(resp){
       var array = [];
-      //$scope.cards = resp;
-      console.log(resp);
-      console.log(resp[0].brand.length);
 
       for(i = 0; i<resp[0].brand.length; i++)
       {
         array.push({username: resp[0].username, brand: resp[0].brand[i], cardNo: resp[0].cardNo[i]});
       }
       $scope.cards = array;
-      console.log(array);
     });
   }
 }])
