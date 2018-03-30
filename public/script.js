@@ -70,13 +70,26 @@ angular.module('app', ['ngRoute', 'ngResource'])
 //---------------
 .controller('ProductController', ['$scope', '$routeParams', 'Products', '$location', '$resource', 'ViewProducts', function ($scope, $routeParams, Products, $location, $resource, ViewProducts) {
   $scope.editing = [];
+  $scope.currentPage = 1;
+
   var productCount = $resource('/products/count');
 
-  var count = productCount.get();
-  var size = 15;
-  var page = 0;
+  productCount.get(function(counted)
+  {
+    $scope.pages = Math.ceil(counted[0]/15);
+  });
+  
+  $scope.previous = function()
+  {
+    $scope.currentPage -= 1;
+  }
 
-  $scope.products = ViewProducts.query({size: size, page: page});
+  $scope.next = function()
+  {
+    $scope.currentPage += 1;
+  }
+
+  $scope.products = ViewProducts.query({size: 15, page: $scope.currentPage-1});
 
   $scope.go = function(index){
     $location.url(index);
