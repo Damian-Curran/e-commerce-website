@@ -46,13 +46,12 @@ router.post('/:id', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    console.log("made it to post of cards");
-    /*stripe.charges.create({
+    stripe.charges.create({
         amount: 3000,
         currency: "eur",
-        source: req.body.id, // obtained with Stripe.js
-        description: "Charge for michael.thompson@example.com"
-      });*/
+        source: req.body.token, // obtained with Stripe.js
+        description: "Charge for " + req.body.username
+    });
 });
 
 /* GET /card listings. */
