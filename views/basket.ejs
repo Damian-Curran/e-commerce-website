@@ -1,8 +1,23 @@
-<ul>
+<div ng-click="purchase()">Purchase Basket</div>
+
+<br></br>
+<br></br>
+
+<ul ng-show="show != 1">
     <li ng-repeat="item in itemBasket">
           <div>
                   {{item.name}}
                   <img src="/uploads/{{item.image1}}" width="200" height="200">
           </div>
     </li>
-  </ul>
+</ul>
+
+<ul ng-show="show == 1">
+    <li ng-repeat="card in cards">
+          <div>
+                {{card.username}}
+                {{card.brand}}
+                {{card.cardNo}}
+          </div>
+    </li>
+</ul>

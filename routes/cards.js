@@ -46,12 +46,20 @@ router.post('/:id', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    stripe.charges.create({
+    console.log("made it to post of cards");
+    /*stripe.charges.create({
         amount: 3000,
         currency: "eur",
         source: req.body.id, // obtained with Stripe.js
         description: "Charge for michael.thompson@example.com"
-      });
+      });*/
 });
+
+/* GET /card listings. */
+router.get('/:id', function(req, res, next) {
+    Card.find({username: req.params.id}, function (err, cards) {
+      res.json(cards);
+    });
+  });
 
 module.exports = router;

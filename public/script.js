@@ -173,9 +173,28 @@ angular.module('app', ['ngRoute', 'ngResource'])
   var user = indexService.user;
 
   var User = $resource('/baskets/:id', {id: user});
+
+  var Purchase = $resource('/cards/:id');
   
   $scope.itemBasket = User.query();
 
+  $scope.purchase = function(){
+    $scope.show = 1;
+
+    Purchase.query({id: user}, function(resp){
+      var array = [];
+      //$scope.cards = resp;
+      console.log(resp);
+      console.log(resp[0].brand.length);
+
+      for(i = 0; i<resp[0].brand.length; i++)
+      {
+        array.push({username: resp[0].username, brand: resp[0].brand[i], cardNo: resp[0].cardNo[i]});
+      }
+      $scope.cards = array;
+      console.log(array);
+    });
+  }
 }])
 .controller('cardController', ['$scope', '$routeParams', '$location', 'indexService', 'Authentication', '$resource', 'Cards', function ($scope, $routeParams, $location, indexService, Authentication, $resource, Cards) {
   var user = indexService.user;
@@ -184,7 +203,6 @@ angular.module('app', ['ngRoute', 'ngResource'])
   $scope.create = function(){
     var card = new Cards({number: $scope.card.number, cvc: $scope.card.cvc, month: $scope.card.exp_month, year: $scope.card.exp_year});
     User.save(card, function(token){
-      //Cards.save(token);
     });
   }
 }])
