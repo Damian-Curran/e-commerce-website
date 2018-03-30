@@ -63,11 +63,13 @@ angular.module('app', ['ngRoute', 'ngResource'])
 //---------------
 // Controllers
 //---------------
-.controller('ProductController', ['$scope', '$routeParams', 'Products', '$location', function ($scope, $routeParams, Products, $location) {
+.controller('ProductController', ['$scope', '$routeParams', 'Products', '$location', '$resource', function ($scope, $routeParams, Products, $location, $resource) {
   $scope.editing = [];
-  $scope.products = Products.query();
+  var productCount = $resource('/products/count');
+  
+  var count = productCount.get();
 
-  //myService.set("i am shared data");
+  $scope.products = Products.query();
 
   $scope.go = function(index){
     $location.url(index);

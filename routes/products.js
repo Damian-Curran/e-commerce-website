@@ -3,6 +3,13 @@ var router = express.Router();
 
 var Product = require('../models/Product.js');
 
+/* count /products listing. */
+router.get('/count', function(req, res, next) {
+  Product.count({sold: false},function(err, counted){
+    res.json(counted);
+  });
+});
+
 /* GET /products listing. */
 router.get('/', function(req, res, next) {
   Product.find({sold: false}, function (err, products) {
