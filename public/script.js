@@ -20,6 +20,11 @@ angular.module('app', ['ngRoute', 'ngResource'])
   return $resource('/cards/', null, {
   });
 }])
+.factory('ViewProducts', ['$resource', function($resource){
+  return $resource('/products/:size/:page', {}, {
+    'query': {method: 'GET', params: {size: '@size', page: '@page'}, isArray: true}
+  });
+}])
 .factory('User', function() {
   var savedData = {}
   function set(data) {
@@ -63,13 +68,15 @@ angular.module('app', ['ngRoute', 'ngResource'])
 //---------------
 // Controllers
 //---------------
-.controller('ProductController', ['$scope', '$routeParams', 'Products', '$location', '$resource', function ($scope, $routeParams, Products, $location, $resource) {
+.controller('ProductController', ['$scope', '$routeParams', 'Products', '$location', '$resource', 'ViewProducts', function ($scope, $routeParams, Products, $location, $resource, ViewProducts) {
   $scope.editing = [];
   var productCount = $resource('/products/count');
-  
-  var count = productCount.get();
 
-  $scope.products = Products.query();
+  var count = productCount.get();
+  var size = 15;
+  var page = 0;
+
+  $scope.products = ViewProducts.query({size: size, page: page});
 
   $scope.go = function(index){
     $location.url(index);
