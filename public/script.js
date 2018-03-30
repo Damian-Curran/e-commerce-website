@@ -178,7 +178,8 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   var Purchase = $resource('/cards/');
   
-  $scope.itemBasket = User.query();
+  var itemBasket = User.query();
+  $scope.itemBasket = itemBasket;
 
   $scope.purchase = function(){
     $scope.show = 1;
@@ -203,6 +204,12 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   $scope.confirm = function()
   {
+    var totalCost = 0;
+    for(i = 0; i< itemBasket.length; i++){
+      totalCost += itemBasket[0].cost;
+    }
+    console.log("cost " + totalCost);
+
     console.log("confirmed " + $scope.cards[0].token);
     Purchase.save($scope.cards[0]);
   }

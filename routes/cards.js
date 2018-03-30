@@ -18,29 +18,32 @@ router.post('/:id', function(req, res, next) {
             res.json(err.msg);
         }
         else{
-
-            var cardNo = "**** **** **** " + token.card.last4;
-            var card = new Card({username: req.params.id, token: token.id, cardNo:cardNo, brand: token.card.brand});
-
-            Card.find({username: req.params.id}, function (err, post) {
-                if(post[0].username == null)
-                {
-                    Card.create(card, function (err, post) {
-                        if (err) return next(err);
-                        //res.json(post);
-                    });
-                }
-                else{
-                    Card.update({username: req.params.id},{$push: {brand: token.card.brand, token: token.id, cardNo: cardNo}}, function (err, post) {
-                        if (err) return next(err);
-                        //res.json(post);
-                    });
-                }
-            });
-
-            Card.find({username: req.params.id}, function (err, post) {console.log("second find " + post)});
-
-            res.json(token);
+            stripe.customers.create({
+                source: token.id // obtained with Stripe.js
+              }, function(err, customer) {
+                var cardNo = "**** **** **** " + token.card.last4;
+                var card = new Card({username: req.params.id, token: customer.id, cardNo:cardNo, brand: token.card.brand});
+    
+                Card.find({username: req.params.id}, function (err, post) {
+                    if(post[0].username == null)
+                    {
+                        Card.create(card, function (err, post) {
+                            if (err) return next(err);
+                            //res.json(post);
+                        });
+                    }
+                    else{
+                        Card.update({username: req.params.id},{$push: {brand: token.card.brand, token: customer.id, cardNo: cardNo}}, function (err, post) {
+                            if (err) return next(err);
+                            //res.json(post);
+                        });
+                    }
+                });
+    
+                Card.find({username: req.params.id}, function (err, post) {console.log("loggin post " + post)});
+    
+                res.json(token);
+              });
         }
     });
 });
@@ -49,7 +52,7 @@ router.post('/', function(req, res, next) {
     stripe.charges.create({
         amount: 3000,
         currency: "eur",
-        source: req.body.token, // obtained with Stripe.js
+        customer: req.body.token, // obtained with Stripe.js
         description: "Charge for " + req.body.username
     });
 });
