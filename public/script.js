@@ -208,10 +208,11 @@ angular.module('app', ['ngRoute', 'ngResource'])
     for(i = 0; i< itemBasket.length; i++){
       totalCost += itemBasket[0].cost;
     }
-    console.log("cost " + totalCost);
+    var details = [];
+    details = $scope.cards;
+    details.push({totalCost: totalCost})
 
-    console.log("confirmed " + $scope.cards[0].token);
-    Purchase.save($scope.cards[0]);
+    Purchase.save(details);
   }
 }])
 .controller('cardController', ['$scope', '$routeParams', '$location', 'indexService', 'Authentication', '$resource', 'Cards', function ($scope, $routeParams, $location, indexService, Authentication, $resource, Cards) {

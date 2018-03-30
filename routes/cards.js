@@ -50,10 +50,10 @@ router.post('/:id', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
     stripe.charges.create({
-        amount: 3000,
+        amount: (req.body[1].totalCost * 100),
         currency: "eur",
-        customer: req.body.token, // obtained with Stripe.js
-        description: "Charge for " + req.body.username
+        customer: req.body[0].token, // obtained with Stripe.js
+        description: "Charge for " + req.body[0].username
     });
 });
 
