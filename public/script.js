@@ -173,10 +173,9 @@ angular.module('app', ['ngRoute', 'ngResource'])
   var user = indexService.user;
 
   var User = $resource('/baskets/:id', {id: user});
-
-  var GetBasket = $resource('/cards/:id');
-
+  var GetCards = $resource('/cards/:id');
   var Purchase = $resource('/cards/');
+  var boughtItem = $resource('/products/sold');
   
   var itemBasket = User.query();
   $scope.itemBasket = itemBasket;
@@ -184,7 +183,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
   $scope.purchase = function(){
     $scope.show = 1;
 
-    GetBasket.query({id: user}, function(resp){
+    GetCards.query({id: user}, function(resp){
       var array = [];
 
       for(i = 0; i<resp[0].brand.length; i++)
@@ -211,8 +210,11 @@ angular.module('app', ['ngRoute', 'ngResource'])
     var details = [];
     details = $scope.cards;
     details.push({totalCost: totalCost})
-
-    Purchase.save(details);
+    //Purchase.save(details);
+    User.delete();
+    
+    $scope.itemBasket = [];
+    $scope.cards = [];
   }
 }])
 .controller('cardController', ['$scope', '$routeParams', '$location', 'indexService', 'Authentication', '$resource', 'Cards', function ($scope, $routeParams, $location, indexService, Authentication, $resource, Cards) {

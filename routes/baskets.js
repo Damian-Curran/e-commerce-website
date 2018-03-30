@@ -35,4 +35,9 @@ router.get('/:id', function(req, res, next) {
       });
 });
 
+router.delete('/:id', function(req, res, next) {
+    Basket.remove({username: req.params.id}, function(){
+    });
+});
+
 module.exports = router;
