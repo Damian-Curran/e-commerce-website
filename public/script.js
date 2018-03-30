@@ -186,10 +186,23 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
       for(i = 0; i<resp[0].brand.length; i++)
       {
-        array.push({username: resp[0].username, brand: resp[0].brand[i], cardNo: resp[0].cardNo[i]});
+        array.push({username: resp[0].username, brand: resp[0].brand[i], cardNo: resp[0].cardNo[i], token: resp[0].token[i]});
       }
       $scope.cards = array;
     });
+  }
+
+  $scope.useCard = function(card){
+    var array = [];
+    console.log(card);
+    array.push(card);
+    $scope.cards = array;
+    $scope.show = 2;
+  }
+
+  $scope.confirm = function()
+  {
+    console.log("confirmed " + $scope.cards[0].token);
   }
 }])
 .controller('cardController', ['$scope', '$routeParams', '$location', 'indexService', 'Authentication', '$resource', 'Cards', function ($scope, $routeParams, $location, indexService, Authentication, $resource, Cards) {

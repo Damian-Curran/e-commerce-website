@@ -3,6 +3,16 @@
 <br></br>
 <br></br>
 
+<ul ng-show="show == 1 || show == 2">
+    <li ng-repeat="card in cards">
+          <div ng-click="useCard(card)">
+                {{card.username}}
+                {{card.brand}}
+                {{card.cardNo}}
+          </div>
+    </li>
+</ul>
+
 <ul ng-show="show != 1">
     <li ng-repeat="item in itemBasket">
           <div>
@@ -12,12 +22,7 @@
     </li>
 </ul>
 
-<ul ng-show="show == 1">
-    <li ng-repeat="card in cards">
-          <div>
-                {{card.username}}
-                {{card.brand}}
-                {{card.cardNo}}
-          </div>
-    </li>
-</ul>
+<br></br>
+<br></br>
+
+<div ng-click="confirm()">Confirm Purchase</div>
