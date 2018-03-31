@@ -232,6 +232,8 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   $scope.confirm = function()
   {
+    var itemBasket = User.query();
+    $scope.itemBasket = itemBasket;
     var totalCost = 0;
     for(i = 0; i< itemBasket.length; i++){
       totalCost += itemBasket[0].cost;
