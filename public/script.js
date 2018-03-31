@@ -198,6 +198,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
   var GetCards = $resource('/cards/:id');
   var Purchase = $resource('/cards/');
   var boughtItem = $resource('/products/sold');
+  var removeItem = $resource('/baskets/:user/:prodId', {user: '@user', prodId: '@prodId'});
   
   var itemBasket = User.query();
   $scope.itemBasket = itemBasket;
@@ -214,6 +215,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
       }
       $scope.cards = array;
     });
+  }
+
+  $scope.remove = function(prodId){
+    removeItem.delete({user: user, prodId: prodId})
   }
 
   $scope.useCard = function(card){

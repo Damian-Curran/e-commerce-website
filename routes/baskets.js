@@ -40,4 +40,9 @@ router.delete('/:id', function(req, res, next) {
     });
 });
 
+router.delete('/:user/:prodId', function(req, res, next) {
+    Basket.remove({username: req.params.user, product: req.params.prodId}, function(){
+    });
+});
+
 module.exports = router;
