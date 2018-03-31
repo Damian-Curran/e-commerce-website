@@ -25,7 +25,11 @@ router.get('/:id', function(req, res, next) {
             Product.findById(items[item].product, function (err, post) {
                 count++;
                 if (err) return next(err);
-                array.push(post);
+                console.log(post.sold);
+                if(post.sold == false)
+                {
+                    array.push(post);
+                }
                 if(count == items.length)
                 {
                     res.json(array);
