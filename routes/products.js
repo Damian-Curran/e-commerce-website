@@ -62,14 +62,11 @@ router.put('/:id', function(req, res, next) {
   });
 
   /* POST /products */
-router.post('/sold', function(req, res, next) {
-  console.log(req.body.length);
-
+router.post('/sold/:id', function(req, res, next) {
   for(i = 0; i<req.body.length; i++)
   {
-    Product.findByIdAndUpdate(req.body[i]._id, {sold: true}, function (err, post) {
+    Product.findByIdAndUpdate(req.body[i]._id, {$set: {sold: true, buyer: req.params.id}}, function (err, post) {
       if (err) return next(err);
-      //res.json(post);
     });
   }
 });

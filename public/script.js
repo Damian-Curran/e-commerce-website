@@ -225,7 +225,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
   var User = $resource('/baskets/:id', {id: user});
   var GetCards = $resource('/cards/:id');
   var Purchase = $resource('/cards/');
-  var boughtItem = $resource('/products/sold');
+  var boughtItem = $resource('/products/sold/:id', {id: user});
   var removeItem = $resource('/baskets/:user/:prodId', {user: '@user', prodId: '@prodId'});
   
   var itemBasket = User.query();
@@ -260,22 +260,22 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   $scope.confirm = function()
   {
-    var itemBasket = User.query();
-    $scope.itemBasket = itemBasket;
-    var totalCost = 0;
-    for(i = 0; i< itemBasket.length; i++){
-      totalCost += itemBasket[0].cost;
-    }
-    var details = [];
-    details = $scope.cards;
-    details.push({totalCost: totalCost})
-    //Purchase.save(details);
-    User.delete();
-
-    boughtItem.save(itemBasket);
-
-    $scope.itemBasket = [];
-    $scope.cards = [];
+    User.query(function(resp){
+      var totalCost = 0;
+      for(i = 0; i< itemBasket.length; i++){
+        totalCost += itemBasket[0].cost;
+      }
+      var details = [];
+      details = $scope.cards;
+      details.push({totalCost: totalCost})
+      //Purchase.save(details);
+      User.delete();
+  
+      boughtItem.save(resp);
+  
+      $scope.itemBasket = [];
+      $scope.cards = [];
+    });
   }
 }])
 .controller('cardController', ['$scope', '$routeParams', '$location', 'indexService', 'Authentication', '$resource', 'Cards', function ($scope, $routeParams, $location, indexService, Authentication, $resource, Cards) {

@@ -89,6 +89,7 @@ app.post('/', upload.any(), function(req,res){
           cost: req.body.cost,
           category: req.body.category,
           sold: false,
+          buyer: String,
           image1:req.files[0].filename,
           image2:req.files[1].filename,
           image3:images3,
