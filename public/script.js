@@ -73,26 +73,34 @@ angular.module('app', ['ngRoute', 'ngResource'])
   $scope.currentPage = 1;
 
   var productCount = $resource('/products/count');
-  var categorySearch = $resource('/products/:size/:page/:category');
+  var categorySearch = $resource('/products/:size/:page/:category/:min/:max');
 
   productCount.get(function(counted)
   {
-    $scope.pages = Math.ceil(counted[0]/15);
+    $scope.pages = Math.ceil(counted.count/15);
   });
-  
+
   $scope.previous = function()
   {
     $scope.currentPage -= 1;
+    $scope.products = ViewProducts.query({size: 15, page: $scope.currentPage-1});
   }
 
   $scope.next = function()
   {
     $scope.currentPage += 1;
+    $scope.products = ViewProducts.query({size: 15, page: $scope.currentPage-1});
   }
 
-  if($routeParams.category != '')
+  if($routeParams.category != null)
   {
-    $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: $routeParams.category});
+    if($routeParams.min == null)
+      var min = 0;
+
+    if($routeParams.max == null)
+      var max = 0;
+
+    $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: $routeParams.category, min: min, max: max});
   }
   else{
     $scope.products = ViewProducts.query({size: 15, page: $scope.currentPage-1});
@@ -175,7 +183,18 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   $scope.select = function()
   {
-    $location.url($scope.category);
+    var query = '';
+
+    if($scope.category != null)
+      query += $scope.category;
+
+    if($scope.min != null)
+      query += ('?min=' + $scope.min);
+
+    if($scope.max != null)
+      query += ('&max=' + $scope.max);
+
+    $location.url(query);
   }
 
   $scope.login = function(){

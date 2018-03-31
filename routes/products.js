@@ -6,7 +6,8 @@ var Product = require('../models/Product.js');
 /* count /products listing. */
 router.get('/count', function(req, res, next) {
   Product.count({sold: false},function(err, counted){
-    res.json(counted);
+    var count = {count: counted};
+    res.json(count);
   });
 });
 
@@ -19,8 +20,11 @@ router.get('/:size/:page', function(req, res, next) {
 });
 
 /* GET /products listing with category. */
-router.get('/:size/:page/:category', function(req, res, next) {
-  Product.find({sold: false, category: req.params.category}, function (err, products) {
+router.get('/:size/:page/:category/:min/:max', function(req, res, next) {
+  var query = {sold: false, category: req.params.category};
+  //query.cost = {$lt: 20};
+
+  Product.find(query, function (err, products) {
     if (err) return next(err);
     res.json(products);
   }).limit(parseInt(req.params.size)).skip((parseInt(req.params.page))*req.params.size);
