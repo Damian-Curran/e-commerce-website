@@ -171,7 +171,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
   $scope.select = function()
   {
     indexService.category = $scope.category;
-    $location.url('/category');
+    $location.url($scope.category);
   }
 
   $scope.login = function(){
