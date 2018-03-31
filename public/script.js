@@ -91,7 +91,14 @@ angular.module('app', ['ngRoute', 'ngResource'])
     $scope.currentPage += 1;
   }
 
-  $scope.products = ViewProducts.query({size: 15, page: $scope.currentPage-1});
+  var category = indexService.category;
+  if(category != '')
+  {
+    $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: category});
+  }
+  else{
+    $scope.products = ViewProducts.query({size: 15, page: $scope.currentPage-1});
+  }
 
   $scope.go = function(index){
     $location.url('/product/' + index);
@@ -280,47 +287,6 @@ angular.module('app', ['ngRoute', 'ngResource'])
     });
   }
 }])
-.controller('categoryController', ['$scope', '$routeParams', 'Products', '$location', '$resource', 'ViewProducts', 'indexService', '$route', function ($scope, $routeParams, Products, $location, $resource, ViewProducts, indexService, $route) {
-  $scope.editing = [];
-  $scope.currentPage = 1;
-
-  var productCount = $resource('/products/count');
-  var categorySearch = $resource('/products/:size/:page/:category');
-
-  productCount.get(function(counted)
-  {
-    $scope.pages = Math.ceil(counted[0]/15);
-  });
-  
-  $scope.previous = function()
-  {
-    $scope.currentPage -= 1;
-  }
-
-  $scope.next = function()
-  {
-    $scope.currentPage += 1;
-  }
-
-  var category = indexService.category;
-  if(category != '')
-  {
-    $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: category});
-  }
-  else{
-    $scope.products = ViewProducts.query({size: 15, page: $scope.currentPage-1});
-  }
-
-  $scope.go = function(index){
-    $location.url('/product/' + index);
-  }
-  $scope.createItem = function(){
-    $location.url('/createItem');
-  }
-  $scope.register = function(){
-    $location.url('/register');
-  }
-}])
 //---------------
 // Routes
 //---------------
@@ -356,8 +322,8 @@ angular.module('app', ['ngRoute', 'ngResource'])
       controller: 'cardController'
     })
     .when('/:category', {
-      templateUrl: '/views/category.ejs',
-      controller: 'categoryController'
+      templateUrl: '/views/products.ejs',
+      controller: 'ProductController'
     })
     .when('/product/:id', {
       templateUrl: '/views/productDetails.ejs',
