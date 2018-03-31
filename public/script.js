@@ -219,6 +219,8 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   $scope.remove = function(prodId){
     removeItem.delete({user: user, prodId: prodId})
+    var itemBasket = User.query();
+    $scope.itemBasket = itemBasket;
   }
 
   $scope.useCard = function(card){
