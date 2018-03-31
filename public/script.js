@@ -137,22 +137,6 @@ angular.module('app', ['ngRoute', 'ngResource'])
     });
   }
 }])
-.controller('CreateProductController', ['$scope', '$routeParams', 'Products', '$location', function ($scope, $routeParams, Products, $location) {
-  $scope.products = Products.query();
-
-  //console.log(myService.get());
-
-  $scope.save = function(){
-    if(!$scope.newProduct || $scope.newProduct.length < 1) return;
-    var product = new Products({ name: $scope.newProduct, description: $scope.Description });
-    product.$save(function(){
-      $scope.products.push(product);
-      $scope.newProduct = ''; // clear textbox
-      $scope.Description = ''; // clear textbox
-      $location.url('/');
-    });
-  }
-}])
 .controller('RegisterController', ['$scope', '$routeParams', 'Users', '$location', function ($scope, $routeParams, Users, $location) {
   $scope.err = false;
   $scope.err2 = false;
@@ -222,8 +206,6 @@ angular.module('app', ['ngRoute', 'ngResource'])
       var user = new Users({email: $scope.email, password: $scope.password});
       
       var response = Users.check({email: $scope.email} , user, function(){
-        //$location.url('/');
-        console.log(response);
         var store = response.username;
         Authentication.store_token(store);
         indexService.user = store;
@@ -317,8 +299,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
       controller: 'ProductController'
     })
     .when('/createItem', {
-      templateUrl: '/views/createProduct.ejs',
-      controller: 'CreateProductController'
+      templateUrl: '/views/createProduct.ejs'
     })
     .when('/register', {
       templateUrl: '/views/register.ejs',
