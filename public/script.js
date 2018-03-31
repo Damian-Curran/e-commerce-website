@@ -44,7 +44,6 @@ angular.module('app', ['ngRoute', 'ngResource'])
   return {
       siteName:'ShopTillYouDrop',
       user: '',
-      category: '',
   };
 })
 .factory('Authentication', function($window) {
@@ -69,7 +68,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
 //---------------
 // Controllers
 //---------------
-.controller('ProductController', ['$scope', '$routeParams', 'Products', '$location', '$resource', 'ViewProducts', 'indexService', function ($scope, $routeParams, Products, $location, $resource, ViewProducts, indexService) {
+.controller('ProductController', ['$scope', '$routeParams', 'Products', '$location', '$resource', 'ViewProducts', function ($scope, $routeParams, Products, $location, $resource, ViewProducts) {
   $scope.editing = [];
   $scope.currentPage = 1;
 
@@ -91,10 +90,9 @@ angular.module('app', ['ngRoute', 'ngResource'])
     $scope.currentPage += 1;
   }
 
-  var category = indexService.category;
-  if(category != '')
+  if($routeParams.category != '')
   {
-    $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: category});
+    $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: $routeParams.category});
   }
   else{
     $scope.products = ViewProducts.query({size: 15, page: $scope.currentPage-1});
@@ -177,7 +175,6 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   $scope.select = function()
   {
-    indexService.category = $scope.category;
     $location.url($scope.category);
   }
 
