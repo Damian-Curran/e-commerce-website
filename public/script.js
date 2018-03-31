@@ -94,11 +94,14 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   if($routeParams.category != null)
   {
+    var min = $routeParams.min;
+    var max = $routeParams.max;
+
     if($routeParams.min == null)
-      var min = 0;
+      min = 0;
 
     if($routeParams.max == null)
-      var max = 0;
+      max = 0;
 
     $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: $routeParams.category, min: min, max: max});
   }

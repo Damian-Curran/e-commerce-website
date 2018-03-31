@@ -22,7 +22,14 @@ router.get('/:size/:page', function(req, res, next) {
 /* GET /products listing with category. */
 router.get('/:size/:page/:category/:min/:max', function(req, res, next) {
   var query = {sold: false, category: req.params.category};
-  //query.cost = {$lt: 20};
+  if(req.params.min >= 0 && req.params.max > 0)
+  {
+    query.cost = {$lt: req.params.max, $gt: req.params.min};
+  }
+  else if(req.params.max == 0)
+  {
+    query.cost = {$gt: req.params.min};
+  }
 
   Product.find(query, function (err, products) {
     if (err) return next(err);
