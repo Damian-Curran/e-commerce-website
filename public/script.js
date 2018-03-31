@@ -196,6 +196,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
     $location.url('/viewBasket');
   }
 
+  $scope.soldItems = function(){
+    $location.url('/userProducts');
+  }
+
   $scope.creditCard = function(){
     $location.url('/createCard');
   }
@@ -288,6 +292,12 @@ angular.module('app', ['ngRoute', 'ngResource'])
     });
   }
 }])
+.controller('userProductController', ['$scope', '$routeParams', '$location', 'indexService', '$resource', function ($scope, $routeParams, $location, indexService, $resource) {
+  var user = indexService.user;
+  var User = $resource('/products/:id', {id: user});
+
+  $scope.products = User.query();
+}])
 //---------------
 // Routes
 //---------------
@@ -320,6 +330,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
     .when('/createCard', {
       templateUrl: '/views/cardDetails.ejs',
       controller: 'cardController'
+    })
+    .when('/userProducts', {
+      templateUrl: '/views/userProducts.ejs',
+      controller: 'userProductController'
     })
     .when('/:category', {
       templateUrl: '/views/products.ejs',
