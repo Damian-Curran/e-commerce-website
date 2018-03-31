@@ -38,25 +38,47 @@ router.put('/:email', function(req, res, next) {
 
 // Register User
 router.post('/', function(req, res){
-	var name = req.body.name;
-	var email = req.body.email;
-	var username = req.body.username;
-	var password = req.body.password;
-	var password2 = req.body.password2;
+	User.find({$or: [{username: req.body.username}, {email: req.body.email}]},function (err, users) {
+		var usernameDup = false;
+		var emailDup = false;
 
-		var newUser = new User({
-			name: name,
-			email:email,
-			username: username,
-			password: password
-		});
+		for(i = 0; i < users.length; i++)
+		{
+			if(users[i].username == req.body.username)
+			{
+				usernameDup = true;
+			}
+			if(users[i].email == req.body.email)
+			{
+				emailDup = true;
+			}
+		}
+	  
+		if(usernameDup == false && emailDup == false)
+		{
+			var name = req.body.name;
+			var email = req.body.email;
+			var username = req.body.username;
+			var password = req.body.password;
+			var password2 = req.body.password2;
+		
+			var newUser = new User({
+				name: name,
+				email:email,
+				username: username,
+				password: password
+			});
 
-		User.createUser(newUser, function(err, user){
-			if(err) throw err;
-			console.log(user);
-		});
-	}
-);
+			User.createUser(newUser, function(err, user){
+				if(err) throw err;
+			});
+		}
+		else{
+			var duplicate = {emailDup, usernameDup};
+			res.json(duplicate);
+		}
+	});
+});
 
 
 module.exports = router;

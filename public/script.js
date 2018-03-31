@@ -136,16 +136,26 @@ angular.module('app', ['ngRoute', 'ngResource'])
   }
 }])
 .controller('RegisterController', ['$scope', '$routeParams', 'Users', '$location', function ($scope, $routeParams, Users, $location) {
+  $scope.err = false;
+  $scope.err2 = false;
   $scope.save = function(){
     if($scope.name != null && $scope.username != null && $scope.email != null && $scope.password != null && $scope.password2 != null){
       var user = new Users({ name: $scope.name, username: $scope.username, email: $scope.email, password: $scope.password, password2: $scope.password2 });
-      $scope.name = "test";
-      //$location.url('/');
-      user.$save(function(){
+      user.$save(function(err){
+        if(err.emailDup == true)
+        {
+          $scope.err = true;
+          $scope.showError = "Email already registered";
+        }
+        if(err.usernameDup == true)
+        {
+          $scope.err2 = true;
+          $scope.showError2 = "Username already registered";
+        }
       });
     }
     else{
-      $scope.name = "failed";
+      $scope.showError = "Missing field";
     }
   }
 }])

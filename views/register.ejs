@@ -1,5 +1,8 @@
 <h1>Enter Details</h1>
 
+<input ng-show="err == true" ng-model="showError" readonly>
+<input ng-show="err2 == true" ng-model="showError2" readonly>
+
 <form name="registerform">
     Name <input type="text" ng-model="name" name="name" required>
     <br><br>
