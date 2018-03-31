@@ -18,6 +18,14 @@ router.get('/:size/:page', function(req, res, next) {
   }).limit(parseInt(req.params.size)).skip((parseInt(req.params.page))*req.params.size);
 });
 
+/* GET /products listing with category. */
+router.get('/:size/:page/:category', function(req, res, next) {
+  Product.find({sold: false, category: req.params.category}, function (err, products) {
+    if (err) return next(err);
+    res.json(products);
+  }).limit(parseInt(req.params.size)).skip((parseInt(req.params.page))*req.params.size);
+});
+
 /* POST /products */
 router.post('/', function(req, res, next) {
     Product.create(req.body, function (err, post) {

@@ -20,6 +20,9 @@
     <div ng-show=" template.user != '' " ng-click="basket()">Basket</div>    
     <div ng-show=" template.user != '' " ng-click="creditCard()">Add Card</div>
 
+    <select class="form-control" ng-model="category" ng-options="x for x in categories" ng-change="select()">
+    </select>
+
     <ng-view></ng-view>
 
   </body>

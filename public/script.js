@@ -43,7 +43,8 @@ angular.module('app', ['ngRoute', 'ngResource'])
  .factory('indexService', function() {
   return {
       siteName:'ShopTillYouDrop',
-      user: ''
+      user: '',
+      category: '',
   };
 })
 .factory('Authentication', function($window) {
@@ -68,11 +69,12 @@ angular.module('app', ['ngRoute', 'ngResource'])
 //---------------
 // Controllers
 //---------------
-.controller('ProductController', ['$scope', '$routeParams', 'Products', '$location', '$resource', 'ViewProducts', function ($scope, $routeParams, Products, $location, $resource, ViewProducts) {
+.controller('ProductController', ['$scope', '$routeParams', 'Products', '$location', '$resource', 'ViewProducts', 'indexService', function ($scope, $routeParams, Products, $location, $resource, ViewProducts, indexService) {
   $scope.editing = [];
   $scope.currentPage = 1;
 
   var productCount = $resource('/products/count');
+  var categorySearch = $resource('/products/:size/:page/:category');
 
   productCount.get(function(counted)
   {
@@ -92,7 +94,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
   $scope.products = ViewProducts.query({size: 15, page: $scope.currentPage-1});
 
   $scope.go = function(index){
-    $location.url(index);
+    $location.url('/product/' + index);
   }
   $scope.createItem = function(){
     $location.url('/createItem');
@@ -163,6 +165,14 @@ angular.module('app', ['ngRoute', 'ngResource'])
   var stored = Authentication.get_token();
   indexService.user = stored;
   $scope.template = indexService;
+
+  $scope.categories = ["Electronics", "Gaming", "Farm", "Literature"];
+
+  $scope.select = function()
+  {
+    indexService.category = $scope.category;
+    $location.url('/category');
+  }
 
   $scope.login = function(){
     $location.url('/login');
@@ -270,6 +280,47 @@ angular.module('app', ['ngRoute', 'ngResource'])
     });
   }
 }])
+.controller('categoryController', ['$scope', '$routeParams', 'Products', '$location', '$resource', 'ViewProducts', 'indexService', '$route', function ($scope, $routeParams, Products, $location, $resource, ViewProducts, indexService, $route) {
+  $scope.editing = [];
+  $scope.currentPage = 1;
+
+  var productCount = $resource('/products/count');
+  var categorySearch = $resource('/products/:size/:page/:category');
+
+  productCount.get(function(counted)
+  {
+    $scope.pages = Math.ceil(counted[0]/15);
+  });
+  
+  $scope.previous = function()
+  {
+    $scope.currentPage -= 1;
+  }
+
+  $scope.next = function()
+  {
+    $scope.currentPage += 1;
+  }
+
+  var category = indexService.category;
+  if(category != '')
+  {
+    $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: category});
+  }
+  else{
+    $scope.products = ViewProducts.query({size: 15, page: $scope.currentPage-1});
+  }
+
+  $scope.go = function(index){
+    $location.url('/product/' + index);
+  }
+  $scope.createItem = function(){
+    $location.url('/createItem');
+  }
+  $scope.register = function(){
+    $location.url('/register');
+  }
+}])
 //---------------
 // Routes
 //---------------
@@ -304,7 +355,11 @@ angular.module('app', ['ngRoute', 'ngResource'])
       templateUrl: '/views/cardDetails.ejs',
       controller: 'cardController'
     })
-    .when('/:id', {
+    .when('/:category', {
+      templateUrl: '/views/category.ejs',
+      controller: 'categoryController'
+    })
+    .when('/product/:id', {
       templateUrl: '/views/productDetails.ejs',
       controller: 'ProductDetailCtrl'
    });
