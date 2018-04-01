@@ -1,6 +1,6 @@
 <h1>{{ product.name }}</h1>
-<h2>€{{ product.cost }}</h2>
-Description: <textarea ng-model="product.description"></textarea><br><br>
+€<input ng-model="product.cost" value="product.cost">
+<h2>{{ product.description }}</h2>
 
 <button ng-click="update()">Update</button>
 <button ng-click="basket()">Add to basket</button>
