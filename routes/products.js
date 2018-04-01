@@ -46,8 +46,18 @@ router.post('/', function(req, res, next) {
   });
 
 /* GET /products/id */
-router.get('/:id', function(req, res, next) {
-    Product.find({sold: true, seller: req.params.id}, function (err, post) {
+router.get('/user/:id/:option', function(req, res, next) {
+  var query = {sold: true};
+  
+  if(req.params.option == 1)
+  {
+    query.buyer = req.params.id;
+  }
+  else{
+    query.seller = req.params.id;
+  }
+
+    Product.find(query, function (err, post) {
       if (err) return next(err);
       res.json(post);
     });

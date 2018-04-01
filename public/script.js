@@ -197,7 +197,11 @@ angular.module('app', ['ngRoute', 'ngResource'])
   }
 
   $scope.soldItems = function(){
-    $location.url('/userProducts');
+    $location.url('/userProducts' + "?sold");
+  }
+
+  $scope.boughtItems = function(){
+    $location.url('/userProducts' + "?bought");
   }
 
   $scope.creditCard = function(){
@@ -294,9 +298,17 @@ angular.module('app', ['ngRoute', 'ngResource'])
 }])
 .controller('userProductController', ['$scope', '$routeParams', '$location', 'indexService', '$resource', function ($scope, $routeParams, $location, indexService, $resource) {
   var user = indexService.user;
-  var User = $resource('/products/:id', {id: user});
+  var option;
+  if($routeParams.sold == true)
+  {
+    option = 0;
+  }else{
+    option = 1;
+  }
+  
+  var User = $resource('/products/user/:id/:option');
 
-  $scope.products = User.query();
+  $scope.products = User.query({id: user, option: option});
 }])
 //---------------
 // Routes
