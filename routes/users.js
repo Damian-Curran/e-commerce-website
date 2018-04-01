@@ -19,9 +19,8 @@ router.get('/:email', function(req, res, next) {
 	
 	/* PUT /users/:id */
 router.put('/:email', function(req, res, next) {
-	User.find(req.params.email, function (err, post) {
+	User.find({email: req.params.email}, function (err, post) {
 		if (err) return next(err);
-
 		User.comparePassword(req.body.password, post[0].password, function(err, isMatch){
 			if(err) throw err;
 			if(isMatch){
@@ -59,6 +58,9 @@ router.post('/', function(req, res){
 			var name = req.body.name;
 			var email = req.body.email;
 			var username = req.body.username;
+			var area = req.body.area;
+			var town = req.body.town;
+			var county = req.body.county;
 			var password = req.body.password;
 			var password2 = req.body.password2;
 		
@@ -66,6 +68,9 @@ router.post('/', function(req, res){
 				name: name,
 				email:email,
 				username: username,
+				area: area,
+				town: town,
+				county: county,
 				password: password
 			});
 
@@ -80,5 +85,11 @@ router.post('/', function(req, res){
 	});
 });
 
+router.get('/get/:user', function(req, res, next) {
+    User.find({username: req.params.user},function (err, users) {
+	  if (err) return next(err);
+      res.json(users);
+    });
+  });
 
 module.exports = router;

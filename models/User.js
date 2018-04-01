@@ -15,6 +15,15 @@ var UserSchema = mongoose.Schema({
 	},
 	name: {
 		type: String
+	},
+	area: {
+		type: String
+	},
+	town: {
+		type: String
+	},
+	county: {
+		type: String
 	}
 });
 

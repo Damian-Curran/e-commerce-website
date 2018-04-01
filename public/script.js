@@ -141,24 +141,19 @@ angular.module('app', ['ngRoute', 'ngResource'])
   $scope.err = false;
   $scope.err2 = false;
   $scope.save = function(){
-    if($scope.name != null && $scope.username != null && $scope.email != null && $scope.password != null && $scope.password2 != null){
-      var user = new Users({ name: $scope.name, username: $scope.username, email: $scope.email, password: $scope.password, password2: $scope.password2 });
-      user.$save(function(err){
-        if(err.emailDup == true)
-        {
-          $scope.err = true;
-          $scope.showError = "Email already registered";
-        }
-        if(err.usernameDup == true)
-        {
-          $scope.err2 = true;
-          $scope.showError2 = "Username already registered";
-        }
-      });
-    }
-    else{
-      $scope.showError = "Missing field";
-    }
+    var user = new Users({ name: $scope.name, username: $scope.username, email: $scope.email, password: $scope.password, password2: $scope.password2, area: $scope.area, town: $scope.town, county: $scope.county });
+    user.$save(function(err){
+      if(err.emailDup == true)
+      {
+        $scope.err = true;
+        $scope.showError = "Email already registered";
+      }
+      if(err.usernameDup == true)
+      {
+        $scope.err2 = true;
+        $scope.showError2 = "Username already registered";
+      }
+    });
   }
 }])
 .controller('indexCtrl', ['$scope', '$routeParams', '$location', 'indexService', 'Authentication', function ($scope, $routeParams, $location, indexService, Authentication) {
@@ -206,6 +201,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   $scope.creditCard = function(){
     $location.url('/createCard');
+  }
+
+  $scope.editUser = function(){
+    $location.url('/editUser');
   }
 }])
 .controller('loginController', ['$scope', '$routeParams', '$location', 'Users', 'indexService', 'Authentication', function ($scope, $routeParams, $location, Users, indexService, Authentication) {
@@ -314,6 +313,14 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   $scope.products = User.query({id: user, option: option});
 }])
+.controller('userSettingsController', ['$scope', '$routeParams', '$location', 'indexService', '$resource', function ($scope, $routeParams, $location, indexService, $resource) {
+  var user = indexService.user;
+  
+  var User = $resource('/users/get/:id');
+
+  $scope.user = User.query({id: user});
+
+}])
 //---------------
 // Routes
 //---------------
@@ -350,6 +357,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
     .when('/userProducts', {
       templateUrl: '/views/userProducts.ejs',
       controller: 'userProductController'
+    })
+    .when('/editUser', {
+      templateUrl: '/views/userSettings.ejs',
+      controller: 'userSettingsController'
     })
     .when('/:category', {
       templateUrl: '/views/products.ejs',
