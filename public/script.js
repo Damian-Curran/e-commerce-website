@@ -305,6 +305,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
   }else{
     option = 1;
   }
+
+  $scope.go = function(index){
+    $location.url('/product/' + index);
+  }
   
   var User = $resource('/products/user/:id/:option');
 

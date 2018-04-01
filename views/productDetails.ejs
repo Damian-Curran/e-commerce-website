@@ -1,8 +1,8 @@
 <h1>{{ product.name }}</h1>
-€<input ng-model="product.cost" value="product.cost">
+€<input ng-model="product.cost" ng-show="template.user == product.seller && product.sold == false" value="product.cost">
 <h2>{{ product.description }}</h2>
 
 <button ng-click="update()">Update</button>
-<button ng-click="basket()">Add to basket</button>
+<button ng-show="template.user != product.seller" ng-click="basket()">Add to basket</button>
 <br><br>
 <a href="/">Cancel</a>
