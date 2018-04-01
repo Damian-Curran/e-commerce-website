@@ -92,4 +92,9 @@ router.get('/get/:user', function(req, res, next) {
     });
   });
 
+  router.put('/put/:user', function(req, res, next) {
+	User.findOneAndUpdate({username:req.params.user}, {$set: {area: req.body.area, town: req.body.town, county: req.body.county}}, function(resp){
+	});
+  });
+
 module.exports = router;
