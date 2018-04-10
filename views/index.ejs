@@ -17,7 +17,29 @@
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <link href="/public/bootstrap.min.css" rel="stylesheet">
 
-    <h1>{{ template.siteName }} {{ template.user }}</h1>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col align-self-start">
+            <a class="navbar-brand" href="#">{{ template.siteName }}</a>
+        </div>
+        <div class="col align-self-center" style="padding-right:0">
+          <div class="nav-input">
+            <input type="text" class="form-control col-md-18 col-sm-14 col-xs-8">
+          </div>
+        </div>
+        <div class="col align-self-center" style="padding-left:0">
+            <div class="nav-input">
+              <button class="btn-link col-md-18 col-sm-14 col-xs-8">Search</button>
+            </div>
+        </div>
+        <div class="row align-items-end">
+            <div class="col">
+                <btn class="btn-link btn-sm" ng-click="yourAccount()">Your Account</btn>
+                <btn class="btn-link btn-sm" ng-click="basket()">Basket</btn>
+            </div>
+          </div>
+      </div>
+    </div>
 
     <div ng-show=" template.user == '' " ng-click="login()">Login</div>
     <div ng-show=" template.user != '' " ng-click="logout()">Logout</div>
@@ -33,6 +55,10 @@
     € from <input ng-change="select()" ng-model="min" ng-model-options="{debounce: 1000}"> to <input ng-change="select()" ng-model="max" ng-model-options="{debounce: 1000}"> 
 
     <ng-view></ng-view>
+
+  <!--<div class="col">
+          {{ template.user }}
+  </div>-->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script rel="stylesheet" tpye="text/css" href="/public/bootstrap.js"></script> 
