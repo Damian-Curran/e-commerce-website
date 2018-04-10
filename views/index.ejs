@@ -2,7 +2,9 @@
 <html ng-app="app" ng-controller="indexCtrl">
   <head>
     <title></title>
-    <link rel="stylesheet" href="//rawgit.com/twbs/bootstrap/v3.3.1/dist/css/bootstrap.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
 
@@ -13,6 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.js"></script>
     <script src="/public/script.js"></script> 
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <link href="/public/bootstrap.min.css" rel="stylesheet">
 
     <h1>{{ template.siteName }} {{ template.user }}</h1>
 
@@ -31,5 +34,7 @@
 
     <ng-view></ng-view>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script rel="stylesheet" tpye="text/css" href="/public/bootstrap.js"></script> 
   </body>
 </html>
