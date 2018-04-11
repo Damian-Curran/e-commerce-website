@@ -1,12 +1,54 @@
-<br></br>
-<br></br>
-{{user[0].name}}
-{{user[0].username}}
-{{user[0].email}}
-<input type="text" ng-model="area">
-<input type="text" ng-model="town">
-<input type="text" ng-model="county">
+<div id="wrap">
+    <div class="container">
+        <form method="POST">
+        <div class="form-group">
+                
+            <div class="form-row justify-content-center">
+                <div class="col-xs-2">
+                    <label> Account Details </label>
+                    <input class="form-control" type='text' ng-model="card.number" placeholder="{{user[0].name}}" readonly/>
+                    <div class="form-row justify-content-center">
+                        <div class="col-xs-2">
+                                <input class="form-control" type='text' ng-model="card.cvc" placeholder="{{user[0].username}}" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-row justify-content-center">
+                            <div class="col-xs-2">
+                                <input class="form-control" type='text' ng-model="card.cvc" placeholder="{{user[0].email}}" readonly/>
+                            </div>
+                        </div>
+                    </div>
+            </div>
 
-<button ng-click="update()">Update</button>
-<br><br>
+
+            <div class="form-row justify-content-center">
+                    <div class="col-xs-2">
+                        <label> Address Details </label>
+                        <input class="form-control" type='text' ng-model="area" required/>
+                        <div class="form-row justify-content-center">
+                            <div class="col-xs-2">
+                                    <input class="form-control" type='text' ng-model="town" required/>
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-center">
+                                <div class="col-xs-2">
+                                        <input class="form-control" type='text' ng-model="county" required/>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+        </div>
+
+        <div class="form-row justify-content-center">
+                <div class="col-xs-4">
+                        <button class="btn btn-primary" ng-click="update()" >Update</button>
+                </div>
+        </div>  
+    <div id="push"></div>
+    </form>
+    </div>
+</div>
+
+<!--
 <a href="/">Cancel</a>
+-->
