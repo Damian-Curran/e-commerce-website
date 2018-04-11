@@ -25,25 +25,33 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col align-self-center" style="padding-left:0">
-            <a class="navbar-brand" href="#">{{ template.siteName }}</a>
+            <a class="navbar-brand" href="" ng-click="home()">{{ template.siteName }}</a>
         </div>
-        <div class="col align-self-center" style="padding-right:0">
+        <div class="col-md-26 align-self-center" style="padding-right:0">
+            <div class="nav-input">
+                <select class="form-control" ng-model="category" ng-options="x for x in categories" ng-change="select()"></select>
+            </div>
+          </div>
+        <div class="col align-self-center" style="padding-right:0; padding-left:0">
           <div class="nav-input">
-            <input type="text" class="form-control col-md-18 col-sm-14 col-xs-8">
+            <input type="text" ng-model="searchReq" class="form-control col-md-18 col-sm-14 col-xs-8">
           </div>
         </div>
         <div class="col align-self-center" style="padding-left:0">
             <div class="nav-input">
-              <button class="btn-sm">Search</button>
+              <button class="btn-sm" ng-click="search(searchReq)">Search</button>
             </div>
         </div>
         <div class="row align-items-end">
             <div class="col">
                 <btn class="btn-link btn-sm dropdown-toggle" data-toggle="dropdown">Your Account</btn>
                 <ul class="dropdown-menu">
+                    <li><a href="" ng-show=" template.user == '' " ng-click="login()">Login</a></li>
                     <li><a href="" ng-click="soldItems()">Sold Items</a></li>
                     <li><a href="" ng-click="boughtItems()">Bought Items</a></li>
                     <li><a href="" ng-click="editUser()">Edit Account</a></li>
+                    <li><a href="" ng-click="createItem()">Create Item</a></li>
+                    <li><a href="" ng-show=" template.user == '' " ng-click="register()">Register</a></li>
                     <li><a href="" ng-show=" template.user != '' " ng-click="logout()">Logout</a></li>
                   </ul>
                 </button>
@@ -51,17 +59,32 @@
             </div>
           </div>
       </div>
+      <div class="row">
+          <div class="col-md-2">
+              <btn class="btn-link btn-sm dropdown-toggle" data-toggle="dropdown">Catagories</btn>
+              <ul class="dropdown-menu">
+                  <li ng-repeat="x in categories">
+                    <a href="" ng-model="category" ng-click="selectCategory(x)">{{x}}</a>
+                </li>
+                </ul>
+          </div>
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-2">
+          </div>
+      </div>
+      <div class="row-md-8">
+          <div class="col">
+            <ng-view></ng-view>
+          </div>
+      </div>
     </div>
-
-    <!--<div ng-show=" template.user == '' " ng-click="login()">Login</div>                   ng-click="yourAccount()"-->
+                  <!-- ng-click="yourAccount()"-->
     <div ng-show=" template.user != '' " ng-click="creditCard()">Add Card</div>
-
-    <select class="form-control" ng-model="category" ng-options="x for x in categories" ng-change="select()">
-    </select>
 
     € from <input ng-change="select()" ng-model="min" ng-model-options="{debounce: 1000}"> to <input ng-change="select()" ng-model="max" ng-model-options="{debounce: 1000}"> 
 
-    <ng-view></ng-view>
+    
 
   <!--<div class="col">
           {{ template.user }}
