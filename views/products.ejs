@@ -1,14 +1,25 @@
-<button ng-click="createItem()">Create Item</button>
-<button ng-click="register()">Register</button>
-Search: <input type="text" ng-model="search.name">
-<ul>
+<!-- Search: <input type="text" ng-model="search.name"> -->
+<div class="row">
+  <div class="col-md-2" ng-repeat="product in products" ng-click="go(product._id)">
+    <div class="row">
+        <img src="/uploads/{{product.image1}}" width="200" height="200">
+    </div>
+    <div class="row">
+      <div class="col-md-4 align-self-center">
+        {{product.name}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <ul>
   <li ng-repeat="product in products | filter: search">
         <div ng-click="go(product._id)">
                 {{product.name}}
                 <img src="/uploads/{{product.image1}}" width="200" height="200">
         </div>
   </li>
-</ul>
+</ul> -->
 
 <br></br>
 <br></br>
