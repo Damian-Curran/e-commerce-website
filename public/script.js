@@ -343,6 +343,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
     $location.url('/product/' + index);
   }
   
+  console.log($scope.showPage);
+
+  $scope.showPage = false;
+
   var User = $resource('/products/user/:id/:option');
 
   $scope.products = User.query({id: user, option: option});
@@ -400,7 +404,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
       controller: 'cardController'
     })
     .when('/userProducts', {
-      templateUrl: '/views/userProducts.ejs',
+      templateUrl: '/views/products.ejs',
       controller: 'userProductController'
     })
     .when('/editUser', {
