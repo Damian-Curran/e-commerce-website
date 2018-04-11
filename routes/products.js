@@ -21,7 +21,8 @@ router.get('/:size/:page', function(req, res, next) {
 
 /* GET /products listing with category. */
 router.get('/:size/:page/:category/:min/:max/:search', function(req, res, next) {
-  var query = {sold: false, category: req.params.category};
+  var query = {sold: false};
+
   if(req.params.min >= 0 && req.params.max > 0)
   {
     query.cost = {$lt: req.params.max, $gt: req.params.min};
@@ -29,6 +30,13 @@ router.get('/:size/:page/:category/:min/:max/:search', function(req, res, next) 
   else if(req.params.max == 0)
   {
     query.cost = {$gt: req.params.min};
+  }
+
+  console.log(req.params.category);
+
+  if(req.params.category != 0)
+  {
+    query.category = req.params.category;
   }
 
   if(req.params.search != 0)
