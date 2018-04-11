@@ -11,9 +11,13 @@ router.post('/count/', function(req, res, next) {
   {
     query.cost = {$lt: req.body.max, $gt: req.body.min};
   }
-  else if(req.body.max == 0)
+  else if(req.body.min != null)
   {
     query.cost = {$gt: req.body.min};
+  }
+  else if(req.body.max != null)
+  {
+    query.cost = {$lt: req.body.max};
   }
 
   if(req.body.category != null)
@@ -44,21 +48,25 @@ router.get('/:size/:page', function(req, res, next) {
 router.get('/:size/:page/:category/:min/:max/:search', function(req, res, next) {
   var query = {sold: false};
 
-  if(req.params.min >= 0 && req.params.max > 0)
+  if(req.params.min != null && req.params.max != null)
   {
     query.cost = {$lt: req.params.max, $gt: req.params.min};
   }
-  else if(req.params.max == 0)
+  else if(req.body.min != null)
   {
-    query.cost = {$gt: req.params.min};
+    query.cost = {$gt: req.body.min};
+  }
+  else if(req.body.max != null)
+  {
+    query.cost = {$lt: req.body.max};
   }
 
-  if(req.params.category != 0)
+  if(req.params.category != null)
   {
     query.category = req.params.category;
   }
 
-  if(req.params.search != 0)
+  if(req.params.search != null)
   {
     query.name = req.params.search;
   }

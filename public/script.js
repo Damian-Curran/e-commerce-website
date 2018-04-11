@@ -103,20 +103,6 @@ angular.module('app', ['ngRoute', 'ngResource'])
       $scope.pages = Math.ceil(counted.count/1);
     });
   }
-
-  if($routeParams.category == null)
-  {
-    category = 0;
-  }
-
-  if($routeParams.min == null)
-    min = 0;
-
-  if($routeParams.max == null)
-    max = 0;
-
-  if($routeParams.searchfor == null)
-    search = 0;
     
   $scope.products = categorySearch.query({size: 1, page: $scope.currentPage-1, category: category, min: min, max: max, search: search});
 
