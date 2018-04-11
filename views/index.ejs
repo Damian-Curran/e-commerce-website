@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/public/wrapping.css">
   </head>
   <body>
 
@@ -22,9 +23,10 @@
     <script src="/public/script.js"></script> 
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col align-self-center" style="padding-left:0">
+    <div id="wrap">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col align-self-center" style="padding-left:0">
             <a class="navbar-brand" href="" ng-click="home()">{{ template.siteName }}</a>
         </div>
         <div class="col-md-26 align-self-center" style="padding-right:0">
@@ -42,7 +44,7 @@
               <button class="btn-sm" ng-click="search(searchReq)">Search</button>
             </div>
         </div>
-        <div class="row align-items-end">
+        <div class="row-md-2 align-items-end">
             <div class="col">
                 <btn class="btn-link btn-sm dropdown-toggle" data-toggle="dropdown">Your Account</btn>
                 <ul class="dropdown-menu">
@@ -79,16 +81,22 @@
           </div>
       </div>
     </div>
-                  <!-- ng-click="yourAccount()"-->
-    <div ng-show=" template.user != '' " ng-click="creditCard()">Add Card</div>
-
-    € from <input ng-change="select()" ng-model="min" ng-model-options="{debounce: 1000}"> to <input ng-change="select()" ng-model="max" ng-model-options="{debounce: 1000}"> 
-
-    
+    <div id="push"></div>
+  </div>
+                  <!-- ng-click="yourAccount()"
+    <div ng-show=" template.user != '' " ng-click="creditCard()">Add Card</div> --> 
 
   <!--<div class="col">
           {{ template.user }}
   </div>-->
   
+  <div id="footer">
+      <div class="container">
+        <div class="row">
+        Test Footer
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>
