@@ -7,28 +7,30 @@ var Product = require('../models/Product.js');
 router.post('/count/', function(req, res, next) {
   var query = {sold: false};
 
-  if(req.body.min != null && req.body.max != null)
+  if(req.body.min != 0 && req.body.max != 0)
   {
     query.cost = {$lt: req.body.max, $gt: req.body.min};
   }
-  else if(req.body.min != null)
+  else if(req.body.min != 0)
   {
     query.cost = {$gt: req.body.min};
   }
-  else if(req.body.max != null)
+  else if(req.body.max != 0)
   {
     query.cost = {$lt: req.body.max};
   }
 
-  if(req.body.category != null)
+  if(req.body.category != 0)
   {
     query.category = req.body.category;
   }
 
-  if(req.body.search != null)
+  if(req.body.search != 0)
   {
     query.name = req.body.search;
   }
+
+  console.log(query);
 
   Product.count(query,function(err, counted){
     var count = {count: counted};
@@ -48,25 +50,25 @@ router.get('/:size/:page', function(req, res, next) {
 router.get('/:size/:page/:category/:min/:max/:search', function(req, res, next) {
   var query = {sold: false};
 
-  if(req.params.min != null && req.params.max != null)
+  if(req.params.min != 0 && req.params.max != 0)
   {
     query.cost = {$lt: req.params.max, $gt: req.params.min};
   }
-  else if(req.body.min != null)
+  else if(req.params.min != 0)
   {
-    query.cost = {$gt: req.body.min};
+    query.cost = {$gt: req.params.min};
   }
-  else if(req.body.max != null)
+  else if(req.params.max != 0)
   {
-    query.cost = {$lt: req.body.max};
+    query.cost = {$lt: req.params.max};
   }
 
-  if(req.params.category != null)
+  if(req.params.category != 0)
   {
     query.category = req.params.category;
   }
 
-  if(req.params.search != null)
+  if(req.params.search != 0)
   {
     query.name = req.params.search;
   }

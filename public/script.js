@@ -80,31 +80,46 @@ angular.module('app', ['ngRoute', 'ngResource'])
   var search = $routeParams.searchfor;
   var category = $routeParams.category;
 
+  if($routeParams.min == null)
+  {
+    min = 0;
+  }
+
+  if($routeParams.max == null)
+  {
+    max = 0;
+  }
+
+  if($routeParams.searchfor == null)
+  {
+    search = 0;
+  }
+
+  if($routeParams.category == null)
+  {
+    category = 0;
+  }
+
   productCount.save({category: category, min: min, max: max, search: search}, function(counted)
   {
-    $scope.pages = Math.ceil(counted.count/1);
+    $scope.pages = Math.ceil(counted.count/15);
   });
 
   $scope.previous = function()
   {
     $scope.currentPage -= 1;
     //$scope.products = ViewProducts.query({size: 15, page: $scope.currentPage-1});
-    $scope.products = categorySearch.query({size: 1, page: $scope.currentPage-1, category: category, min: min, max: max, search: search});
+    $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: category, min: min, max: max, search: search});
   }
 
   $scope.next = function()
   {
     $scope.currentPage += 1;
     //$scope.products = ViewProducts.query({size: 1, page: $scope.currentPage-1});
-    $scope.products = categorySearch.query({size: 1, page: $scope.currentPage-1, category: category, min: min, max: max, search: search});
-
-    productCount.save({category: $routeParams.category, min: $routeParams.min, max: $routeParams.max, search: $routeParams.searchfor}, function(counted)
-    {
-      $scope.pages = Math.ceil(counted.count/1);
-    });
+    $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: category, min: min, max: max, search: search});
   }
-    
-  $scope.products = categorySearch.query({size: 1, page: $scope.currentPage-1, category: category, min: min, max: max, search: search});
+
+  $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: category, min: min, max: max, search: search});
 
   $scope.go = function(index){
     $location.url('/product/' + index);
