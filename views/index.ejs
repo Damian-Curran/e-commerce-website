@@ -25,10 +25,10 @@
 
     <div id="wrap">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row bg-primary">
           <div class="col align-self-center" style="padding-left:0">
-            <a class="navbar-brand" href="" ng-click="home()">{{ template.siteName }}</a>
-        </div>
+            <a class="navbar-brand text-white" href="" ng-click="home()">{{ template.siteName }}</a>
+          </div>
         <div class="col-md-26 align-self-center" style="padding-right:0">
             <div class="nav-input">
                 <select class="form-control" ng-model="category" ng-options="x for x in categories" ng-change="select()"></select>
@@ -46,7 +46,7 @@
         </div>
         <div class="row-md-2 align-items-end">
             <div class="col">
-                <btn class="btn-link btn-sm dropdown-toggle" data-toggle="dropdown">Your Account</btn>
+                <btn class="btn-link btn-sm dropdown-toggle text-white" data-toggle="dropdown">Your Account</btn>
                 <ul class="dropdown-menu">
                     <li><a href="" ng-show=" template.user == '' " ng-click="login()">Login</a></li>
                     <li><a href="" ng-click="soldItems()">Sold Items</a></li>
@@ -57,13 +57,13 @@
                     <li><a href="" ng-show=" template.user != '' " ng-click="logout()">Logout</a></li>
                   </ul>
                 </button>
-                <btn class="btn-link btn-sm" ng-click="basket()">Basket</btn>
+                <btn class="btn-link btn-sm text-white" ng-click="basket()">Basket</btn>
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row bg-primary">
             <div class="col-md-2">
-                <btn class="btn-link btn-sm dropdown-toggle" data-toggle="dropdown">Catagories</btn>
+                <btn class="btn-link btn-sm dropdown-toggle text-white" data-toggle="dropdown">Catagories</btn>
                 <ul class="dropdown-menu">
                     <li ng-repeat="x in categories">
                       <a href="" ng-model="category" ng-click="selectCategory(x)">{{x}}</a>
@@ -75,6 +75,7 @@
             <div class="col-md-2">
             </div>
         </div>
+        <div id="push"></div>
         <div class="row-md-8">
             <div class="col" style="height: 100vh">
               <ng-view></ng-view>
