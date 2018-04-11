@@ -20,7 +20,7 @@ router.get('/:size/:page', function(req, res, next) {
 });
 
 /* GET /products listing with category. */
-router.get('/:size/:page/:category/:min/:max', function(req, res, next) {
+router.get('/:size/:page/:category/:min/:max/:search', function(req, res, next) {
   var query = {sold: false, category: req.params.category};
   if(req.params.min >= 0 && req.params.max > 0)
   {
@@ -29,6 +29,11 @@ router.get('/:size/:page/:category/:min/:max', function(req, res, next) {
   else if(req.params.max == 0)
   {
     query.cost = {$gt: req.params.min};
+  }
+
+  if(req.params.search != 0)
+  {
+    query.name = req.params.search;
   }
 
   Product.find(query, function (err, products) {

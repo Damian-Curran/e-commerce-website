@@ -73,7 +73,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
   $scope.currentPage = 1;
 
   var productCount = $resource('/products/count');
-  var categorySearch = $resource('/products/:size/:page/:category/:min/:max');
+  var categorySearch = $resource('/products/:size/:page/:category/:min/:max/:search');
 
   productCount.get(function(counted)
   {
@@ -96,6 +96,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
   {
     var min = $routeParams.min;
     var max = $routeParams.max;
+    var search = $routeParams.searchfor;
 
     if($routeParams.min == null)
       min = 0;
@@ -103,7 +104,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
     if($routeParams.max == null)
       max = 0;
 
-    $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: $routeParams.category, min: min, max: max});
+    if($routeParams.searchfor == null)
+      search = 0;
+      
+    $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: $routeParams.category, min: min, max: max, search: search});
   }
   else{
     $scope.products = ViewProducts.query({size: 15, page: $scope.currentPage-1});
@@ -111,12 +115,6 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   $scope.go = function(index){
     $location.url('/product/' + index);
-  }
-  $scope.createItem = function(){
-    $location.url('/createItem');
-  }
-  $scope.register = function(){
-    $location.url('/register');
   }
 }])
 .controller('ProductDetailCtrl', ['$scope', '$routeParams', 'Products', '$location', 'Basket', 'indexService', function ($scope, $routeParams, Products, $location, Basket, indexService) {
@@ -163,6 +161,25 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   $scope.categories = ["Electronics", "Gaming", "Farm", "Literature"];
 
+  $scope.search = function(x)
+  {
+    var query = '';
+
+    if($scope.category != null)
+    query += $scope.category;
+
+    query += ('?searchfor=' + x);
+
+    $location.url(query);
+  }
+
+  $scope.selectCategory = function(x)
+  {
+    var query = x;
+
+    $location.url(query);
+  }
+
   $scope.select = function()
   {
     var query = '';
@@ -205,6 +222,15 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   $scope.editUser = function(){
     $location.url('/editUser');
+  }
+  $scope.createItem = function(){
+    $location.url('/createItem');
+  }
+  $scope.register = function(){
+    $location.url('/register');
+  }
+  $scope.home = function(){
+    $location.url('/');
   }
 }])
 .controller('loginController', ['$scope', '$routeParams', '$location', 'Users', 'indexService', 'Authentication', function ($scope, $routeParams, $location, Users, indexService, Authentication) {
