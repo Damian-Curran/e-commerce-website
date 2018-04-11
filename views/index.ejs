@@ -5,6 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </head>
   <body>
 
@@ -15,11 +21,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.js"></script>
     <script src="/public/script.js"></script> 
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-    <link href="/public/bootstrap.min.css" rel="stylesheet">
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col align-self-start">
+        <div class="col align-self-center" style="padding-left:0">
             <a class="navbar-brand" href="#">{{ template.siteName }}</a>
         </div>
         <div class="col align-self-center" style="padding-right:0">
@@ -29,25 +34,27 @@
         </div>
         <div class="col align-self-center" style="padding-left:0">
             <div class="nav-input">
-              <button class="btn-link col-md-18 col-sm-14 col-xs-8">Search</button>
+              <button class="btn-sm">Search</button>
             </div>
         </div>
         <div class="row align-items-end">
             <div class="col">
-                <btn class="btn-link btn-sm" ng-click="yourAccount()">Your Account</btn>
+                <btn class="btn-link btn-sm dropdown-toggle" data-toggle="dropdown">Your Account</btn>
+                <ul class="dropdown-menu">
+                    <li><a href="" ng-click="soldItems()">Sold Items</a></li>
+                    <li><a href="" ng-click="boughtItems()">Bought Items</a></li>
+                    <li><a href="" ng-click="editUser()">Edit Account</a></li>
+                    <li><a href="" ng-show=" template.user != '' " ng-click="logout()">Logout</a></li>
+                  </ul>
+                </button>
                 <btn class="btn-link btn-sm" ng-click="basket()">Basket</btn>
             </div>
           </div>
       </div>
     </div>
 
-    <div ng-show=" template.user == '' " ng-click="login()">Login</div>
-    <div ng-show=" template.user != '' " ng-click="logout()">Logout</div>
-    <div ng-show=" template.user != '' " ng-click="basket()">Basket</div>    
+    <!--<div ng-show=" template.user == '' " ng-click="login()">Login</div>                   ng-click="yourAccount()"-->
     <div ng-show=" template.user != '' " ng-click="creditCard()">Add Card</div>
-    <div ng-show=" template.user != '' " ng-click="soldItems()">Sold Items</div>
-    <div ng-show=" template.user != '' " ng-click="boughtItems()">Bought Items</div>
-    <div ng-show=" template.user != '' " ng-click="editUser()">Edit Account</div>
 
     <select class="form-control" ng-model="category" ng-options="x for x in categories" ng-change="select()">
     </select>
@@ -59,8 +66,5 @@
   <!--<div class="col">
           {{ template.user }}
   </div>-->
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script rel="stylesheet" tpye="text/css" href="/public/bootstrap.js"></script> 
   </body>
 </html>
