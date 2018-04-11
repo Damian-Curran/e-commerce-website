@@ -72,10 +72,15 @@ angular.module('app', ['ngRoute', 'ngResource'])
   $scope.editing = [];
   $scope.currentPage = 1;
 
-  var productCount = $resource('/products/count');
+  var productCount = $resource('/products/count/');
   var categorySearch = $resource('/products/:size/:page/:category/:min/:max/:search');
 
-  productCount.get(function(counted)
+  var min = $routeParams.min;
+  var max = $routeParams.max;
+  var search = $routeParams.searchfor;
+  var category = $routeParams.category;
+
+  productCount.save({category: category, min: min, max: max, search: search}, function(counted)
   {
     $scope.pages = Math.ceil(counted.count/1);
   });
@@ -83,19 +88,21 @@ angular.module('app', ['ngRoute', 'ngResource'])
   $scope.previous = function()
   {
     $scope.currentPage -= 1;
-    $scope.products = ViewProducts.query({size: 15, page: $scope.currentPage-1});
+    //$scope.products = ViewProducts.query({size: 15, page: $scope.currentPage-1});
+    $scope.products = categorySearch.query({size: 1, page: $scope.currentPage-1, category: category, min: min, max: max, search: search});
   }
 
   $scope.next = function()
   {
     $scope.currentPage += 1;
-    $scope.products = ViewProducts.query({size: 1, page: $scope.currentPage-1});
-  }
+    //$scope.products = ViewProducts.query({size: 1, page: $scope.currentPage-1});
+    $scope.products = categorySearch.query({size: 1, page: $scope.currentPage-1, category: category, min: min, max: max, search: search});
 
-  var min = $routeParams.min;
-  var max = $routeParams.max;
-  var search = $routeParams.searchfor;
-  var category = $routeParams.category;
+    productCount.save({category: $routeParams.category, min: $routeParams.min, max: $routeParams.max, search: $routeParams.searchfor}, function(counted)
+    {
+      $scope.pages = Math.ceil(counted.count/1);
+    });
+  }
 
   if($routeParams.category == null)
   {

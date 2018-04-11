@@ -4,8 +4,29 @@ var router = express.Router();
 var Product = require('../models/Product.js');
 
 /* count /products listing. */
-router.get('/count', function(req, res, next) {
-  Product.count({sold: false},function(err, counted){
+router.post('/count/', function(req, res, next) {
+  var query = {sold: false};
+
+  if(req.body.min != null && req.body.max != null)
+  {
+    query.cost = {$lt: req.body.max, $gt: req.body.min};
+  }
+  else if(req.body.max == 0)
+  {
+    query.cost = {$gt: req.body.min};
+  }
+
+  if(req.body.category != null)
+  {
+    query.category = req.body.category;
+  }
+
+  if(req.body.search != null)
+  {
+    query.name = req.body.search;
+  }
+
+  Product.count(query,function(err, counted){
     var count = {count: counted};
     res.json(count);
   });
@@ -31,8 +52,6 @@ router.get('/:size/:page/:category/:min/:max/:search', function(req, res, next) 
   {
     query.cost = {$gt: req.params.min};
   }
-
-  console.log(req.params.category);
 
   if(req.params.category != 0)
   {
