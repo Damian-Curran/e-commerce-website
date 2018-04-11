@@ -60,29 +60,29 @@
                 <btn class="btn-link btn-sm" ng-click="basket()">Basket</btn>
             </div>
           </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <btn class="btn-link btn-sm dropdown-toggle" data-toggle="dropdown">Catagories</btn>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="x in categories">
+                      <a href="" ng-model="category" ng-click="selectCategory(x)">{{x}}</a>
+                  </li>
+                  </ul>
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+        <div class="row-md-8">
+            <div class="col" style="height: 100vh">
+              <ng-view></ng-view>
+            </div>
+        </div>
       </div>
-      <div class="row">
-          <div class="col-md-2">
-              <btn class="btn-link btn-sm dropdown-toggle" data-toggle="dropdown">Catagories</btn>
-              <ul class="dropdown-menu">
-                  <li ng-repeat="x in categories">
-                    <a href="" ng-model="category" ng-click="selectCategory(x)">{{x}}</a>
-                </li>
-                </ul>
-          </div>
-          <div class="col-md-2">
-          </div>
-          <div class="col-md-2">
-          </div>
-      </div>
-      <div class="row-md-8">
-          <div class="col">
-            <ng-view></ng-view>
-          </div>
-      </div>
+      <div id="push"></div>
     </div>
-    <div id="push"></div>
-  </div>
                   <!-- ng-click="yourAccount()"
     <div ng-show=" template.user != '' " ng-click="creditCard()">Add Card</div> --> 
 
