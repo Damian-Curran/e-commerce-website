@@ -1,25 +1,89 @@
-<h1>Enter Details</h1>
+<div id="wrap">
+    <div class="container">
+        <form method="POST">
+            <div class="form-group">
 
-<input ng-show="err == true" ng-model="showError" readonly>
-<input ng-show="err2 == true" ng-model="showError2" readonly>
+                <div class="form-row justify-content-center">
+                    <div class="col-xs-2">
+                        <h2> Account Details </h2>
+                        <div class="form-group">
+                            <div class="col-xs-3 align-self-center">
+                                <label> Your Name: </label>
+                            </div>
+                            <div class="col-xs-2">
+                                <input class="form-control" type="text" ng-model="name" name="name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-3 align-self-center">
+                                <label> Your Email: </label>
+                            </div>
+                            <div class="col-xs-2">
+                                <input class="form-control" type="email" ng-model="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 align-self-center">
+                                <label> Your Username: </label>
+                            </div>
+                            <div class="col-xs-2">
+                                <input class="form-control" type="text" ng-model="username" name="username" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 align-self-center">
+                                <label> Your Area: </label>
+                            </div>
+                            <div class="col-xs-2">
+                                <input class="form-control" type="text" ng-model="area" name="area" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 align-self-center">
+                                <label> Your Town: </label>
+                            </div>
+                            <div class="col-xs-2">
+                                <input class="form-control" type="text" ng-model="town" name="town" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 align-self-center">
+                                <label> Your County: </label>
+                            </div>
+                            <div class="col-xs-2">
+                                <input class="form-control" type="text" ng-model="county" name="county" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 align-self-center">
+                                <label> Your Password: </label>
+                            </div>
+                            <div class="col-xs-2">
+                                <input class="form-control" type="text" ng-model="password" name="password" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 align-self-center">
+                                <label> Confirm Password: </label>
+                            </div>
+                            <div class="col-xs-2">
+                                <input class="form-control" type="text" ng-model="password2" name="password2" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<form name="registerform">
-    Name <input type="text" ng-model="name" name="name" required>
-    <br><br>
-    Email <input type="email" ng-model="email" name="email" required>
-    <br><br>
-    Username<input type="text" ng-model="username" name="username" required>
-    <br><br>
-    Area <input type="text" ng-model="area" name="area" required>
-    <br><br>
-    Town <input type="text" ng-model="town" name="town" required>
-    <br><br>
-    County <input type="text" ng-model="county" name="county" required>
-    <br><br>
-    Password <input type="password" ng-model="password" name="password" required>
-    <br><br>
-    Password <input type="password" ng-model="password2" name="password2" required>
-    <br><br>
-</form>
+            <div class="form-row justify-content-center">
+                <div class="col-xs-4">
+                    <button class="btn btn-primary" ng-click="save()">Create</button>
+                </div>
+            </div>
+            <div id="push"></div>
+        </form>
+    </div>
+</div>
 
-<button ng-click="save()">Create</button>
+<!--
+    <a href="/">Cancel</a>
+    -->
