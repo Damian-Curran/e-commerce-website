@@ -1,6 +1,12 @@
 <!-- Search: <input type="text" ng-model="search.name"> -->
 <div class="pre-scrollable" id="wrap">
   <div class="container-fluid">
+    <div class="row justify-content-start">
+      <div class="col" style="padding-right:0; padding-left:0">
+          From €<input ng-change="select()" ng-model="min" ng-model-options="{debounce: 1000}"> To €<input ng-change="select()" ng-model="max" ng-model-options="{debounce: 1000}">
+      </div>
+    </div>
+    <div id="push"></div>
     <div class="row">
       <div class="col-md-2" ng-repeat="product in products" ng-click="go(product._id)" style="min-width: 200px; max-width: 300px;">
         <div class="row">
