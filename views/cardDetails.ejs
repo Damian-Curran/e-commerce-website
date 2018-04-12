@@ -1,30 +1,51 @@
-<br></br>
-<br></br>
+<!-- 
+    <div id="charge-error" class="alert alert-danger payment-errors"> 
+ -->
 
-<form id="payment-form" style='max-width: 300px;' method="POST">
-
-    <!-- <div id="charge-error" class="alert alert-danger payment-errors"> -->
-
-    <div class="form-group">
-
-        <div class="form-row">
-            <label> Credit Card Info</label>
-            <input class="card-number form-control" type='text' autocomplete='off' data-stripe='number' placeholder='Card Number' ng-model="card.number" required/>
-        </div>
-
-        <div class="form-row">
-            <input class="card-cvc form-control" type='text' autocomplete='off' data-stripe='cvc' placeholder='CVC Code' ng-model="card.cvc" required/>
-        </div>
-
-        <div class="form-row">
-            <label>Expiration Date</label>
-            <br/>
-            <input class="card-expiry-month form-control" type='text' data-stripe='exp-month' placeholder='MM' ng-model="card.exp_month" required/>
-            <input class="card-expiry-year form-control" type='text' data-stripe='exp-year' placeholder='YYYY' ng-model="card.exp_year" required/>
-        </div>
-
+<div id="wrap">
+    <div class="container">
+        <form method="POST" id="payment-form">
+            <div class="form-group">
+                <div class="form-row justify-content-center">
+                    <div class="col-xs-2">
+                        <h2> Credit Card Info </h2>
+                        <div class="form-group">
+                            <div class="col-xs-3 align-self-center">
+                                <label>Card Number:</label>
+                            </div>
+                            <div class="col-xs-2">
+                                <input class="card-number form-control" type='text' autocomplete='off' data-stripe='number' placeholder='Card Number' ng-model="card.number"
+                                    required/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-3 align-self-center">
+                                <label> Cvc: </label>
+                            </div>
+                            <div class="col-xs-2">
+                                <input class="card-cvc form-control" type='text' autocomplete='off' data-stripe='cvc' placeholder='CVC Code' ng-model="card.cvc"
+                                    required/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-3 align-self-center">
+                                <label>Expiration Date:</label>
+                            </div>
+                            <div class="col-xs-2">
+                                <input class="card-expiry-month form-control" type='text' data-stripe='exp-month' placeholder='MM' ng-model="card.exp_month"
+                                    required/>
+                                <input class="card-expiry-year form-control" type='text' data-stripe='exp-year' placeholder='YYYY' ng-model="card.exp_year"
+                                    required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row justify-content-center">
+                    <div class="col-xs-4">
+                        <button class="btn btn-primary submit-button" ng-click="create()">Submit Card Details & Add Customer</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-
-    <br/>
-    <button class="btn btn-primary submit-button" ng-click="create()" >Submit Card Details & Add Customer</button>
-</form>
+</div>
