@@ -57,17 +57,13 @@ app.use(session({
 }));
 
 app.post('/', upload.any(), function(req,res){
-    console.log(req.body); 
-    console.log(req.files);
 
     var c;
     var images3;
 
     Product.findOne({},function(err,data){
-        console.log("into product");
   
         if (data) {
-          console.log("if");
           c = data.unique_id + 1;
         }else{
           c=1;
@@ -95,8 +91,6 @@ app.post('/', upload.any(), function(req,res){
           image3:images3,
           seller: req.body.user,
         });
-  
-        console.log(product);
   
         product.save(function(){
           if(err)
