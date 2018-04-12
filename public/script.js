@@ -272,6 +272,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
   var itemBasket = User.query();
   $scope.itemBasket = itemBasket;
 
+  $scope.go = function(index){
+    $location.url('/product/' + index);
+  }
+
   $scope.purchase = function(){
     $scope.show = 1;
 
@@ -342,8 +346,6 @@ angular.module('app', ['ngRoute', 'ngResource'])
   $scope.go = function(index){
     $location.url('/product/' + index);
   }
-  
-  console.log($scope.showPage);
 
   $scope.showPage = false;
 

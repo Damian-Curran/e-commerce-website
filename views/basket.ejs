@@ -1,31 +1,56 @@
-<div ng-click="purchase()">Purchase Basket</div>
+<div id="wrap">
+    <div class="container-fluid">
+        <div class="row" ng-show="show != 1">
+            <div class="col-md-2" ng-repeat="item in itemBasket" ng-click="go(item._id)" style="min-width: 200px; max-width: 300px;">
+                <div class="row">
+                    <img src="/uploads/{{item.image1}}" width="200" height="200">
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-4 align-self-center">
+                        <a href="">{{item.name}}</a>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-4 align-self-center">
+                        <a class="text-danger" href="" ng-click="remove(item._id)">Remove</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="show == 1 || show == 2">
+            <div class="col-md-2 border" ng-repeat="card in cards" ng-click="useCard(card)" style="min-width: 400px; max-width: 400px;">
+                <div class="row">
+                    <div class="col-md-4 align-self-center">
+                        <label href=""> {{card.username}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 align-self-center">
+                        <label href=""> {{card.brand}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 align-self-center">
+                        <label href=""> {{card.cardNo}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<br></br>
-<br></br>
+<div id="footer" ng-show="show != 2">
+    <div class="container">
+        <div class="row justify-content-center">
+            <button ng-click="purchase()">Purchase Basket</button>
+        </div>
+    </div>
+</div>
 
-<ul ng-show="show == 1 || show == 2">
-    <li ng-repeat="card in cards">
-          <div ng-click="useCard(card)">
-                {{card.username}}
-                {{card.brand}}
-                {{card.cardNo}}
-          </div>
-    </li>
-</ul>
-
-<ul ng-show="show != 1">
-    <li ng-repeat="item in itemBasket">
-          <div>
-                  {{item.name}}
-                  <img src="/uploads/{{item.image1}}" width="200" height="200">
-                  <div>
-                      <button ng-click="remove(item._id)">Remove</button>
-                  </div>
-          </div>
-    </li>
-</ul>
-
-<br></br>
-<br></br>
-
-<div ng-click="confirm()">Confirm Purchase</div>
+<div id="footer" ng-show="show == 2">
+        <div class="container">
+            <div class="row justify-content-center">
+                <button ng-click="confirm()">Confirm Purchase</button>
+            </div>
+        </div>
+    </div>
