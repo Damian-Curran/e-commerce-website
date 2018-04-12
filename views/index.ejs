@@ -1,103 +1,123 @@
 <!DOCTYPE html>
 <html ng-app="app" ng-controller="indexCtrl">
-  <head>
-    <title></title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/public/wrapping.css">
-  </head>
-  <body>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
 
-    <!-- Libraries -->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.js"></script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.js"></script>
-    <script src="/public/script.js"></script> 
-    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/public/wrapping.css">
+</head>
 
-    <div id="wrap">
-      <div class="container-fluid">
-        <div class="row bg-primary">
-          <div class="col align-self-center" style="padding-left:0">
-            <a class="navbar-brand text-white" href="" ng-click="home()">{{ template.siteName }}</a>
-          </div>
+<body>
+
+  <!-- Libraries -->
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.js"></script>
+  <script src="/public/script.js"></script>
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+  <div id="wrap">
+    <div class="container-fluid">
+      <div class="row bg-primary">
+        <div class="col align-self-center" style="padding-left:0">
+          <a class="navbar-brand text-white" href="" ng-click="home()">{{ template.siteName }}</a>
+        </div>
         <div class="col-md-26 align-self-center" style="padding-right:0">
-            <div class="nav-input">
-                <select class="form-control" ng-model="category" ng-options="x for x in categories" ng-change="select()"></select>
-            </div>
+          <div class="nav-input">
+            <select class="form-control" ng-model="category" ng-options="x for x in categories" ng-change="select()"></select>
           </div>
+        </div>
         <div class="col align-self-center" style="padding-right:0; padding-left:0">
           <div class="nav-input">
-            <input type="text" ng-model="searchReq" class="form-control col-md-18 col-sm-14 col-xs-8">
+            <input type="text" ng-model="searchReq" placeholder="Search Product Name" class="form-control col-md-18 col-sm-14 col-xs-8">
           </div>
         </div>
         <div class="col align-self-center" style="padding-left:0">
-            <div class="nav-input">
-              <button class="btn-sm" ng-click="search(searchReq)">Search</button>
-            </div>
-        </div>
-        <div class="row-md-2 align-items-end">
-            <div class="col">
-                <btn class="btn-link btn-sm dropdown-toggle text-white" data-toggle="dropdown">Your Account</btn>
-                <ul class="dropdown-menu">
-                    <li><a href="" ng-show=" template.user == '' " ng-click="login()">Login</a></li>
-                    <li><a href="" ng-click="soldItems()">Sold Items</a></li>
-                    <li><a href="" ng-click="boughtItems()">Bought Items</a></li>
-                    <li><a href="" ng-click="editUser()">Edit Account</a></li>
-                    <li><a href="" ng-click="createItem()">Create Item</a></li>
-                    <li><a href="" ng-show=" template.user == '' " ng-click="register()">Register</a></li>
-                    <li><a href="" ng-show=" template.user != '' " ng-click="logout()">Logout</a></li>
-                  </ul>
-                </button>
-                <btn class="btn-link btn-sm text-white" ng-click="basket()">Basket</btn>
-            </div>
+          <div class="nav-input">
+            <button class="btn-sm" ng-click="search(searchReq)">Search</button>
           </div>
         </div>
-        <div class="row bg-primary">
-            <div class="col-md-2">
-                <btn class="btn-link btn-sm dropdown-toggle text-white" data-toggle="dropdown">Catagories</btn>
-                <ul class="dropdown-menu">
-                    <li ng-repeat="x in categories">
-                      <a href="" ng-model="category" ng-click="selectCategory(x)">{{x}}</a>
-                  </li>
-                  </ul>
-            </div>
-            <div class="col-md-2">
-            </div>
-            <div class="col-md-2">
-            </div>
+        <div class="row-md-2 align-items-end">
+          <div class="col">
+            <btn class="btn-link btn-sm dropdown-toggle text-white" data-toggle="dropdown">Your Account</btn>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="" ng-show=" template.user == '' " ng-click="login()">Login</a>
+              </li>
+              <li>
+                <a href="" ng-click="soldItems()">Sold Items</a>
+              </li>
+              <li>
+                <a href="" ng-click="boughtItems()">Bought Items</a>
+              </li>
+              <li>
+                <a href="" ng-click="editUser()">Edit Account</a>
+              </li>
+              <li>
+                <a href="" ng-click="createItem()">Create Item</a>
+              </li>
+              <li>
+                <a href="" ng-show=" template.user == '' " ng-click="register()">Register</a>
+              </li>
+              <li>
+                <a href="" ng-show=" template.user != '' " ng-click="logout()">Logout</a>
+              </li>
+            </ul>
+            </button>
+            <btn class="btn-link btn-sm text-white" ng-click="basket()">Basket</btn>
+          </div>
         </div>
-        <div id="push"></div>
-        <div class="row-md-8">
-            <div class="col" style="height: 85vh">
-              <ng-view></ng-view>
-            </div>
+      </div>
+      <div class="row bg-primary">
+        <div class="col-md-2">
+          <btn class="btn-link btn-sm dropdown-toggle text-white" data-toggle="dropdown">Catagories</btn>
+          <ul class="dropdown-menu">
+            <li ng-repeat="x in categories">
+              <a href="" ng-model="category" ng-click="selectCategory(x)">{{x}}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
         </div>
       </div>
       <div id="push"></div>
+      <div class="row-md-8">
+        <div class="col" style="height: 85vh">
+          <ng-view></ng-view>
+        </div>
+      </div>
     </div>
-                  <!-- ng-click="yourAccount()"
-    <div ng-show=" template.user != '' " ng-click="creditCard()">Add Card</div> --> 
+    <div id="push"></div>
+  </div>
+  <!-- ng-click="yourAccount()"
+    <div ng-show=" template.user != '' " ng-click="creditCard()">Add Card</div> -->
 
   <!--<div class="col">
           {{ template.user }}
   </div>-->
-  
+
   <div id="footer">
-      <div class="container">
-        <div class="row">
+    <div class="container">
+      <div class="row">
         Test Footer
-        </div>
       </div>
     </div>
+  </div>
+</body>
 
-  </body>
 </html>
