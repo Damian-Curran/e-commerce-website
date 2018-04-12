@@ -69,6 +69,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
 // Controllers
 //---------------
 .controller('ProductController', ['$scope', '$routeParams', 'Products', '$location', '$resource', 'ViewProducts', function ($scope, $routeParams, Products, $location, $resource, ViewProducts) {
+  $scope.filter = false;
   $scope.editing = [];
   $scope.currentPage = 1;
 
@@ -97,6 +98,7 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   if($routeParams.category == null)
   {
+    $scope.filter = true;
     category = 0;
   }
 
