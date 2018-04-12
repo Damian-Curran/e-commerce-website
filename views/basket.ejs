@@ -18,20 +18,25 @@
             </div>
         </div>
         <div class="row" ng-show="show == 1 || show == 2">
-            <div class="col-md-2 border" ng-repeat="card in cards" ng-click="useCard(card)" style="min-width: 400px; max-width: 400px;">
-                <div class="row">
-                    <div class="col-md-4 align-self-center">
-                        <label href=""> {{card.username}}</label>
+            <div class="row">
+                <div class="col" ng-click="creditCard()">Add Card</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 border" ng-repeat="card in cards" ng-click="useCard(card)" style="min-width: 400px; max-width: 400px;">
+                    <div class="row">
+                        <div class="col-md-4 align-self-center">
+                            <label href=""> {{card.username}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 align-self-center">
-                        <label href=""> {{card.brand}}</label>
+                    <div class="row">
+                        <div class="col-md-4 align-self-center">
+                            <label href=""> {{card.brand}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 align-self-center">
-                        <label href=""> {{card.cardNo}}</label>
+                    <div class="row">
+                        <div class="col-md-6 align-self-center">
+                            <label href=""> {{card.cardNo}}</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -48,9 +53,9 @@
 </div>
 
 <div id="footer" ng-show="show == 2">
-        <div class="container">
-            <div class="row justify-content-center">
-                <button ng-click="confirm()">Confirm Purchase</button>
-            </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <button ng-click="confirm()">Confirm Purchase</button>
         </div>
     </div>
+</div>
