@@ -144,6 +144,11 @@ angular.module('app', ['ngRoute', 'ngResource'])
       $location.url('/');
     });
   }
+
+  $scope.modal = function(src){
+    $scope.imageSrc = "/uploads/" + src;
+  }
+
 }])
 .controller('RegisterController', ['$scope', '$routeParams', 'Users', '$location', function ($scope, $routeParams, Users, $location) {
   $scope.err = false;

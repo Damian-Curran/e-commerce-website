@@ -1,8 +1,59 @@
-<h1>{{ product.name }}</h1>
+<!-- <h1>{{ product.name }}</h1>
 €<input ng-model="product.cost" ng-readonly="template.user != product.seller && product.sold != false" value="product.cost"> 
 <h2>{{ product.description }}</h2>
 
 <button ng-click="update()">Update</button>
 <button ng-show="template.user != product.seller" ng-click="basket()">Add to basket</button>
 <br><br>
-<a href="/">Cancel</a>
+<a href="/">Cancel</a> -->
+
+
+<div class="pre-scrollable" id="wrap">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <img ng-show="product.image1 != ''" src="/uploads/{{product.image1}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.image1)"
+                    width="200" height="200">
+                <img ng-show="product.image2 != ''" src="/uploads/{{product.image2}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.image2)"
+                    width="200" height="200">
+                <img ng-show="product.image3 != ''" src="/uploads/{{product.image3}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.image3)"
+                    width="200" height="200">
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col align-self-end">
+                        <h2>{{ product.name }}</h2>
+                    </div>
+                </div>
+                <div id="push"></div>
+                <div id="push"></div>
+                <div class="row">
+                    <h2>{{ product.description }}</h2>
+                </div>
+                <div id="push"></div>
+                <div id="push"></div>
+                <div id="push"></div>
+                <div id="push"></div>
+                <div class="row">
+                    <h2>€{{ product.cost }}</h2>
+                </div>
+            </div>
+            <div class="col-md-6 align-self-start">
+                <div class="row justify-content-end">
+                    <button ng-show="template.user != product.seller" ng-click="basket()">Add to basket</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="myModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img class="img-responsive" src="{{imageSrc}}" width="100%" height="100%">
+            </div>
+        </div>
+    </div>
+</div>
