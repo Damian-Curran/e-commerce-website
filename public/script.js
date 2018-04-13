@@ -215,15 +215,33 @@ angular.module('app', ['ngRoute', 'ngResource'])
   }
 
   $scope.basket = function(){
-    $location.url('/viewBasket');
+    if(indexService.user != '')
+    {
+      $location.url('/viewBasket');
+    }
+    else{
+      $location.url('/login');
+    }
   }
 
   $scope.soldItems = function(){
-    $location.url('/userProducts' + "?sold");
+    if(indexService.user != '')
+    {
+      $location.url('/userProducts' + "?sold");
+    }
+    else{
+      $location.url('/login');
+    }
   }
 
   $scope.boughtItems = function(){
-    $location.url('/userProducts' + "?bought");
+    if(indexService.user != '')
+    {
+      $location.url('/userProducts' + "?bought");
+    }
+    else{
+      $location.url('/login');
+    }
   }
 
   $scope.creditCard = function(){
@@ -231,10 +249,22 @@ angular.module('app', ['ngRoute', 'ngResource'])
   }
 
   $scope.editUser = function(){
-    $location.url('/editUser');
+    if(indexService.user != '')
+    {
+      $location.url('/editUser');
+    }
+    else{
+      $location.url('/login');
+    }
   }
   $scope.createItem = function(){
-    $location.url('/createItem');
+    if(indexService.user != '')
+    {
+      $location.url('/createItem');
+    }
+    else{
+      $location.url('/login');
+    }
   }
   $scope.register = function(){
     $location.url('/register');
