@@ -2,8 +2,13 @@
 <div class="pre-scrollable" id="wrap">
   <div class="container-fluid">
     <div class="row justify-content-start">
-      <div class="col" style="padding-right:0; padding-left:0">
-          From €<input ng-change="select()" ng-model="min" ng-model-options="{debounce: 1000}"> To €<input ng-change="select()" ng-model="max" ng-model-options="{debounce: 1000}">
+      <div class="col-md-4 col-sm-10">
+        <span>From €</span>
+        <input ng-change="select()" ng-model="min" ng-model-options="{debounce: 1000}">
+      </div>
+      <div class="col-md-4 col-sm-10">
+        <span>To €</span>
+        <input ng-change="select()" ng-model="max" ng-model-options="{debounce: 1000}">
       </div>
     </div>
     <div id="push"></div>
