@@ -121,7 +121,7 @@ router.put('/:id', function(req, res, next) {
 router.get('/:id', function(req, res, next) {
   Product.findById(req.params.id, function (err, post) {
     if (err) return next(err);
-    User.find({username: "Damian1234"}, function(err, user){
+    User.find({username: post.seller}, function(err, user){
       var user = {area: user[0].area, town: user[0].town, county: user[0].county, email: user[0].email};
       res.json({post:post, user:user});
     })
@@ -136,6 +136,13 @@ router.post('/sold/:id', function(req, res, next) {
       if (err) return next(err);
     });
   }
+});
+
+router.delete('/:id', function(req, res, next){
+  Product.findByIdAndRemove(req.params.id, function(err, post){
+    if(err) return next (err);
+    res.json(err);
+  });
 });
 
 module.exports = router;

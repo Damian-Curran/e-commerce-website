@@ -12,7 +12,13 @@ angular.module('app')
     }
   
     $scope.update = function(){
-      Products.update({id: $scope.product._id}, $scope.product, function(){
+      Products.update({id: $scope.product.post._id}, $scope.product.post, function(){
+        $location.url('/');
+      });
+    }
+
+    $scope.delete = function(){
+      Products.delete({id: $scope.product.post._id}, $scope.product.post, function(){
         $location.url('/');
       });
     }

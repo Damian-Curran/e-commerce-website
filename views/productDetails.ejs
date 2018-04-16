@@ -12,11 +12,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <img ng-show="product.image1 != ''" src="/uploads/{{product.post.image1}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.image1)"
+                <img ng-show="product.image1 != ''" src="/uploads/{{product.post.image1}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.post.image1)"
                     width="200" height="200">
-                <img ng-show="product.image2 != ''" src="/uploads/{{product.post.image2}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.image2)"
+                <img ng-show="product.image2 != ''" src="/uploads/{{product.post.image2}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.post.image2)"
                     width="200" height="200">
-                <img ng-show="product.image3 != ''" src="/uploads/{{product.post.image3}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.image3)"
+                <img ng-show="product.image3 != ''" src="/uploads/{{product.post.image3}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.post.image3)"
                     width="200" height="200">
             </div>
             <div class="col-md-3">
@@ -35,6 +35,7 @@
                 <div id="push"></div>
                 <div id="push"></div>
                 <div class="row">
+                    <input ng-model="product.post.cost" ng-show="template.user == product.post.seller && product.post.sold == false" value="product.post.cost"> 
                     <h2>€{{ product.post.cost }}</h2>
                     <h2>€{{ product.user.area }}</h2>
                     <h2>€{{ product.user.email }}</h2>
@@ -42,7 +43,9 @@
             </div>
             <div class="col-md-6 align-self-start">
                 <div class="row justify-content-end">
-                    <button ng-show="template.user != product.seller" ng-click="basket()">Add to basket</button>
+                    <button class="btn" ng-show="template.user != product.post.seller" ng-click="basket()">Add to basket</button>
+                    <button class="btn" ng-show="template.user == product.post.seller && product.post.sold == false" ng-click="update()">Update</button>
+                    <button class="btn" ng-show="template.user == product.post.seller && product.post.sold == false" ng-click="delete()">Delete</button>
                 </div>
             </div>
         </div>
