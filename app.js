@@ -109,6 +109,8 @@ app.set('view engine', 'ejs');
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/views', express.static(__dirname + '/views'));
 app.use('/uploads', express.static(__dirname + '/uploads'));
+app.use('/controllers', express.static(__dirname + '/controllers'));
+app.use('/services', express.static(__dirname + '/services'));
 
 // BodyParser Middleware
 app.use(bodyParser.json());
