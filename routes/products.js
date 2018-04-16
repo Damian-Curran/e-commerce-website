@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var Product = require('../models/Product.js');
+var User = require('../models/User.js');
 
 /* count /products listing. */
 router.post('/count/', function(req, res, next) {
@@ -117,7 +118,10 @@ router.put('/:id', function(req, res, next) {
 router.get('/:id', function(req, res, next) {
   Product.findById(req.params.id, function (err, post) {
     if (err) return next(err);
-    res.json(post);
+    User.find({username: "Damian1234"}, function(err, user){
+      var user = {area: user[0].area, town: user[0].town, county: user[0].county, email: user[0].email};
+      res.json({post:post, user:user});
+    })
   });
 });
 

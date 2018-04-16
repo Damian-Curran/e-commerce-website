@@ -12,30 +12,32 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <img ng-show="product.image1 != ''" src="/uploads/{{product.image1}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.image1)"
+                <img ng-show="product.image1 != ''" src="/uploads/{{product.post.image1}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.image1)"
                     width="200" height="200">
-                <img ng-show="product.image2 != ''" src="/uploads/{{product.image2}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.image2)"
+                <img ng-show="product.image2 != ''" src="/uploads/{{product.post.image2}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.image2)"
                     width="200" height="200">
-                <img ng-show="product.image3 != ''" src="/uploads/{{product.image3}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.image3)"
+                <img ng-show="product.image3 != ''" src="/uploads/{{product.post.image3}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.image3)"
                     width="200" height="200">
             </div>
             <div class="col-md-3">
                 <div class="row">
                     <div class="col align-self-end">
-                        <h2>{{ product.name }}</h2>
+                        <h2>{{ product.post.name }}</h2>
                     </div>
                 </div>
                 <div id="push"></div>
                 <div id="push"></div>
                 <div class="row">
-                    <h2>{{ product.description }}</h2>
+                    <h2>{{ product.post.description }}</h2>
                 </div>
                 <div id="push"></div>
                 <div id="push"></div>
                 <div id="push"></div>
                 <div id="push"></div>
                 <div class="row">
-                    <h2>€{{ product.cost }}</h2>
+                    <h2>€{{ product.post.cost }}</h2>
+                    <h2>€{{ product.user.area }}</h2>
+                    <h2>€{{ product.user.email }}</h2>
                 </div>
             </div>
             <div class="col-md-6 align-self-start">
