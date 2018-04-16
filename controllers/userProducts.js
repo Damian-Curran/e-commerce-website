@@ -5,8 +5,10 @@ angular.module('app')
     if($routeParams.sold == true)
     {
       option = 0;
-    }else{
+    }else if($routeParams.bought == true){
       option = 1;
+    }else{
+      option = 2;
     }
   
     $scope.go = function(index){
@@ -15,7 +17,7 @@ angular.module('app')
   
     $scope.showPage = false;
   
-    var User = $resource('/products/user/:id/:option');
+    var User = $resource('/products/user/products/:id/:option');
   
     $scope.products = User.query({id: user, option: option});
   }])

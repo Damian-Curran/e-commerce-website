@@ -31,8 +31,6 @@ router.post('/count/', function(req, res, next) {
     query.name = req.body.search;
   }
 
-  console.log(query);
-
   Product.count(query,function(err, counted){
     var count = {count: counted};
     res.json(count);
@@ -89,14 +87,19 @@ router.post('/', function(req, res, next) {
   });
 
 /* GET /products/id */
-router.get('/user/:id/:option', function(req, res, next) {
-  var query = {sold: true};
+router.get('/user/products/:id/:option', function(req, res, next) {
+  var query = {};
   
-  if(req.params.option == 1)
+  if(req.params.option == 0)
   {
+    query.sold = true;
     query.buyer = req.params.id;
   }
-  else{
+  else if(req.params.option == 1){
+    query.sold = true;
+    query.seller = req.params.id;
+  }else{
+    query.sold = false;
     query.seller = req.params.id;
   }
 

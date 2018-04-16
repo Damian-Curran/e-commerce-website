@@ -78,6 +78,16 @@ angular.module('app')
         $location.url('/login');
       }
     }
+
+    $scope.sellingItems = function(){
+      if(indexService.user != '')
+      {
+        $location.url('/userProducts' + "?selling");
+      }
+      else{
+        $location.url('/login');
+      }
+    }
   
     $scope.creditCard = function(){
       $location.url('/createCard');
