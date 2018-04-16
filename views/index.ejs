@@ -35,7 +35,7 @@
         <div class="col align-self-center" style="padding-left:0">
           <a class="navbar-brand text-white" href="" ng-click="home()">{{ template.siteName }}</a>
         </div>
-        <div class="col-md-26 align-self-center" style="padding-right:0">
+        <div class="col-xs-6 align-self-center" style="padding-right:0">
           <div class="nav-input">
             <select class="form-control" ng-model="category" ng-options="x for x in categories" ng-change="select()"></select>
           </div>
@@ -47,11 +47,28 @@
         </div>
         <div class="col align-self-center" style="padding-left:0">
           <div class="nav-input">
-            <button class="btn-sm" ng-click="search(searchReq)">Search</button>
+            <button class="btn btn-warning" ng-click="search(searchReq)">
+              <span class="glyphicon glyphicon-search"></span>Search</button>
           </div>
         </div>
         <div class="row-md-2 align-items-end">
           <div class="col">
+          </div>
+        </div>
+      </div>
+      <div class="row bg-primary">
+        <div class="col-md-2">
+          <btn class="btn-link btn-sm dropdown-toggle text-white" data-toggle="dropdown">Catagories</btn>
+          <ul class="dropdown-menu">
+            <li ng-repeat="x in categories">
+              <a href="" ng-model="category" ng-click="selectCategory(x)">{{x}}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8 align-self-end">
+          <div class="row justify-content-end">
             <btn class="btn-link btn-sm dropdown-toggle text-white" data-toggle="dropdown">Your Account</btn>
             <ul class="dropdown-menu">
               <li>
@@ -79,20 +96,6 @@
             </button>
             <btn class="btn-link btn-sm text-white" ng-click="basket()">Basket</btn>
           </div>
-        </div>
-      </div>
-      <div class="row bg-primary">
-        <div class="col-md-2">
-          <btn class="btn-link btn-sm dropdown-toggle text-white" data-toggle="dropdown">Catagories</btn>
-          <ul class="dropdown-menu">
-            <li ng-repeat="x in categories">
-              <a href="" ng-model="category" ng-click="selectCategory(x)">{{x}}</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-2">
         </div>
       </div>
       <div class="row-md-8">
