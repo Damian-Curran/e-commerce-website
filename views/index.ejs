@@ -85,7 +85,7 @@
         </div>
         <div class="col-md-8 col-sm-8 col-xs-4 align-self-end">
           <div class="row justify-content-end">
-            <btn class="btn-link btn-sm dropdown-toggle text-white" data-toggle="dropdown">Your Account</btn>
+            <btn class="btn-link btn-sm dropdown-toggle text-white" data-toggle="dropdown">Your Account {{template.user}}</btn>
             <ul class="dropdown-menu">
               <li>
                 <a href="" ng-show=" template.user == '' " ng-click="login()">Login</a>

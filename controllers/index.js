@@ -1,7 +1,10 @@
 angular.module('app')
 .controller('indexCtrl', ['$scope', '$routeParams', '$location', 'indexService', 'Authentication', function ($scope, $routeParams, $location, indexService, Authentication) {
     var stored = Authentication.get_token();
-    indexService.user = stored;
+    if(stored != null)
+    {
+      indexService.user = stored;
+    }
     $scope.template = indexService;
   
     $scope.categories = ["Electronics", "Gaming", "Farm", "Literature"];
