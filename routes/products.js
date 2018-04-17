@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+//require mongoose schemas
 var Product = require('../models/Product.js');
 var User = require('../models/User.js');
 
@@ -8,6 +9,7 @@ var User = require('../models/User.js');
 router.post('/count/', function(req, res, next) {
   var query = {sold: false};
 
+  //build dynamic query
   if(req.body.min != 0 && req.body.max != 0)
   {
     query.cost = {$lt: req.body.max, $gt: req.body.min};
@@ -138,6 +140,7 @@ router.post('/sold/:id', function(req, res, next) {
   }
 });
 
+//delete product
 router.delete('/:id', function(req, res, next){
   Product.findByIdAndRemove(req.params.id, function(err, post){
     if(err) return next (err);

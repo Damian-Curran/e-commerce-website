@@ -7,6 +7,7 @@ var secret = "somethingsecret";
 
 var User = require('../models/User.js');
 
+//sets config for nodemailer
 var options = {
 	auth: {
 		api_user: 'Damian1234', // Sendgrid username
@@ -31,6 +32,7 @@ router.get('/:email', function(req, res, next) {
 router.put('/:email', function(req, res, next) {
 	User.find({email: req.params.email}, function (err, post) {
 		if (err) return next(err);
+		//uses function in model
 		User.comparePassword(req.body.password, post[0].password, function(err, isMatch){
 			if(err) throw err;
 			if(isMatch){
@@ -51,6 +53,7 @@ router.post('/', function(req, res){
 		var usernameDup = false;
 		var emailDup = false;
 
+		//check if account has username or email
 		for(i = 0; i < users.length; i++)
 		{
 			if(users[i].username == req.body.username)
@@ -63,6 +66,7 @@ router.post('/', function(req, res){
 			}
 		}
 	  
+		//if email and username not already existing
 		if(usernameDup == false && emailDup == false)
 		{
 			var name = req.body.name;
@@ -74,6 +78,7 @@ router.post('/', function(req, res){
 			var password = req.body.password;
 			var password2 = req.body.password2;
 		
+			//create object with form details
 			var newUser = new User({
 				name: name,
 				email:email,
@@ -84,17 +89,20 @@ router.post('/', function(req, res){
 				password: password
 			});
 
+			//calls function from model to create user
 			User.createUser(newUser, function(err, user){
 				if(err) throw err;
 			});
 		}
 		else{
+			//if duplicate
 			var duplicate = {emailDup, usernameDup};
 			res.json(duplicate);
 		}
 	});
 });
 
+//get specific user details
 router.get('/get/:user', function(req, res, next) {
     User.find({username: req.params.user},function (err, users) {
 	  if (err) return next(err);
@@ -102,6 +110,7 @@ router.get('/get/:user', function(req, res, next) {
     });
   });
 
+  //function to update user address
   router.put('/put/:user', function(req, res, next) {
 	User.findOneAndUpdate({username:req.params.user}, {$set: {area: req.body.area, town: req.body.town, county: req.body.county}}, function(resp){
 	});
@@ -109,13 +118,18 @@ router.get('/get/:user', function(req, res, next) {
 
   // reset password
 router.post('/reset/:username', function(req, res){
+	//create token for user using secret key
 		var token = jwt.sign({ username: req.params.username}, secret, { expiresIn: '24h' });
+		//set update for user in collection
 		User.findOneAndUpdate({username: req.params.username}, {$set: {token: token}}, function(resp){
 		});
 
+		//find user with matching username
 		User.find({username:req.params.username}, function(err, result){
+			//if user exists
 			if(result != null)
 			{
+				//create email object
 				var email = {
 					from: 'Localhost Staff, staff@localhost.com',
 					to: "sgt.curren@gmail.com",
@@ -131,10 +145,12 @@ router.post('/reset/:username', function(req, res){
 		})
 });
 
+//function used to set new password
 router.post('/newPassword/:password/:token', function(req, res){
 		User.find({token: req.params.token}, function(err, result){
 			if(result != null)
 			{
+				//call function in user model
 				User.updateUser({username: result[0].username, password: req.params.password});
 			}
 		})
