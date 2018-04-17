@@ -1,9 +1,17 @@
 var express = require('express');
 var router = express.Router();
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var nodemailer = require('nodemailer'); // Import Nodemailer Package
+var sgTransport = require('nodemailer-sendgrid-transport'); // Import Nodemailer Sengrid Transport Package
 
 var User = require('../models/User.js');
+
+var options = {
+	auth: {
+		api_user: 'Damian1234', // Sendgrid username
+		api_key: 'benson1234567890' // Sendgrid password
+	}
+}
+var client = nodemailer.createTransport(sgTransport(options));
 
 /* GET /users listing. */
 router.get('/', function(req, res, next) {
@@ -100,7 +108,22 @@ router.get('/get/:user', function(req, res, next) {
   // reset password
 router.post('/reset/:username', function(req, res){
 	User.createToken(req.params.username, function(err){
-		
+		User.find({username:req.params.username}, function(err, result){
+			if(result != null)
+			{
+				var email = {
+					from: 'Localhost Staff, staff@localhost.com',
+					to: "sgt.curren@gmail.com",
+					subject: 'Localhost Reset Password Request',
+					text: 'Hello ' + result[0].name + ', You recently request a password reset link. Please click on the link below to reset your password:<br><br><a href="http://localhost:3000/reset/' + result[0].token,
+					html: 'Hello<strong> ' + result[0].name + '</strong>,<br><br>You recently request a password reset link. Please click on the link below to reset your password:<br><br><a href="http://localhost:3000/reset/' + result[0].token + '">http://localhost:3000/reset/</a>'
+				};
+				// Function to send e-mail to the user
+				client.sendMail(email, function(err, info) {
+					if (err) console.log(err); // If error with sending e-mail, log to console/terminal
+				});
+			}
+		})
 	});
 });
 
