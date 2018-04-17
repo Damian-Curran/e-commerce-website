@@ -37,6 +37,10 @@ Install Node.js: https://www.npmjs.com/get-npm
 
 Open a command console and navigate to the directory 'e-commerce-website'
 
+Run 'npm install'
+
+Then 
+
 Run 'npm start'
 
 Now open your browser and enter the URL: http://localhost:3000/
