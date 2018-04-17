@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var nodemailer = require('nodemailer'); // Import Nodemailer Package
 var sgTransport = require('nodemailer-sendgrid-transport'); // Import Nodemailer Sengrid Transport Package
+var jwt = require('jsonwebtoken');
+var secret = "somethingsecret";
 
 var User = require('../models/User.js');
 
@@ -107,7 +109,11 @@ router.get('/get/:user', function(req, res, next) {
 
   // reset password
 router.post('/reset/:username', function(req, res){
-	User.createToken(req.params.username, function(err){
+	//User.createToken(req.params.username, function(err){
+		var token = jwt.sign({ username: req.params.username}, secret, { expiresIn: '24h' });
+		User.findOneAndUpdate({username: req.params.username}, {$set: {token: token}}, function(resp){
+		});
+
 		User.find({username:req.params.username}, function(err, result){
 			if(result != null)
 			{
@@ -115,8 +121,8 @@ router.post('/reset/:username', function(req, res){
 					from: 'Localhost Staff, staff@localhost.com',
 					to: "sgt.curren@gmail.com",
 					subject: 'Localhost Reset Password Request',
-					text: 'Hello ' + result[0].name + ', You recently request a password reset link. Please click on the link below to reset your password:<br><br><a href="http://localhost:3000/reset/' + result[0].token,
-					html: 'Hello<strong> ' + result[0].name + '</strong>,<br><br>You recently request a password reset link. Please click on the link below to reset your password:<br><br><a href="http://localhost:3000/reset/' + result[0].token + '">http://localhost:3000/reset/</a>'
+					text: 'Hello ' + result[0].name + ', You recently request a password reset link. Please click on the link below to reset your password:<br><br><a href="http://localhost:3000/#/reset/' + result[0].token,
+					html: 'Hello<strong> ' + result[0].name + '</strong>,<br><br>You recently request a password reset link. Please click on the link below to reset your password:<br><br><a href="http://localhost:3000/#/reset/' + result[0].token + '">http://localhost:3000/#/reset/</a>'
 				};
 				// Function to send e-mail to the user
 				client.sendMail(email, function(err, info) {
@@ -124,7 +130,7 @@ router.post('/reset/:username', function(req, res){
 				});
 			}
 		})
-	});
+	//});
 });
 
 module.exports = router;
