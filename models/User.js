@@ -41,6 +41,14 @@ module.exports.createUser = function(newUser, callback){
 	});
 }
 
+module.exports.updateUser = function(user, callback){
+	bcrypt.genSalt(10, function(err, salt) {
+	    bcrypt.hash(user.password, salt, function(err, hash) {
+	        User.findOneAndUpdate({username: user.username}, {$set: {password: hash}});
+	    });
+	});
+}
+
 module.exports.getUserByUsername = function(username, callback){
 	var query = {username: username};
 	User.findOne(query, callback);

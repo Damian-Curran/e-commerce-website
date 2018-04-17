@@ -109,7 +109,6 @@ router.get('/get/:user', function(req, res, next) {
 
   // reset password
 router.post('/reset/:username', function(req, res){
-	//User.createToken(req.params.username, function(err){
 		var token = jwt.sign({ username: req.params.username}, secret, { expiresIn: '24h' });
 		User.findOneAndUpdate({username: req.params.username}, {$set: {token: token}}, function(resp){
 		});
@@ -130,7 +129,15 @@ router.post('/reset/:username', function(req, res){
 				});
 			}
 		})
-	//});
+});
+
+router.post('/newPassword/:password/:token', function(req, res){
+		User.find({token: req.params.token}, function(err, result){
+			if(result != null)
+			{
+				User.updateUser({username: result[0].username, password: req.params.password});
+			}
+		})
 });
 
 module.exports = router;
