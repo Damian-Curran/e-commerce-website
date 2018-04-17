@@ -1,22 +1,12 @@
-<!-- <h1>{{ product.name }}</h1>
-€<input ng-model="product.cost" ng-readonly="template.user != product.seller && product.sold != false" value="product.cost"> 
-<h2>{{ product.description }}</h2>
-
-<button ng-click="update()">Update</button>
-<button ng-show="template.user != product.seller" ng-click="basket()">Add to basket</button>
-<br><br>
-<a href="/">Cancel</a> -->
-
-
 <div class="pre-scrollable" id="wrap">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <img ng-show="product.image1 != ''" src="/uploads/{{product.post.image1}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.post.image1)"
+                <img ng-show="product.post.image1 != '' " src="/uploads/{{product.post.image1}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.post.image1)"
                     width="200" height="200">
-                <img ng-show="product.image2 != ''" src="/uploads/{{product.post.image2}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.post.image2)"
+                <img ng-show="product.post.image2 != '' " src="/uploads/{{product.post.image2}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.post.image2)"
                     width="200" height="200">
-                <img ng-show="product.image3 != ''" src="/uploads/{{product.post.image3}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.post.image3)"
+                <img ng-show="product.post.image3 != '' " src="/uploads/{{product.post.image3}}" data-toggle="modal" data-target="#myModal" ng-click="modal(product.post.image3)"
                     width="200" height="200">
             </div>
             <div class="col-md-3">
