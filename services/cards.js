@@ -1,5 +1,6 @@
 angular.module('app')
-.factory('Cards', ['$resource', function($resource){
+  //service called cards which gives access to resource
+  .factory('Cards', ['$resource', function ($resource) {
     return $resource('/cards/', null, {
     });
   }])

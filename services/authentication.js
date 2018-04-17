@@ -1,19 +1,21 @@
 angular.module('app')
-.factory('Authentication', function($window) {
-    
+  //sets authentication factory service
+  .factory('Authentication', function ($window) {
+
     return {
-  
-      store_token: function(token){
+      //sets token
+      store_token: function (token) {
         $window.sessionStorage.setItem('token', token);
       },
-  
-  
-      get_token: function(){
+
+      //returns token
+      get_token: function () {
         return $window.sessionStorage.getItem("token");
       },
-  
-      delete_token: function(token){
+
+      //deletes token
+      delete_token: function (token) {
         $window.sessionStorage.setItem('token', '');
       }
-  };
+    };
   })
