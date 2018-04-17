@@ -69,6 +69,24 @@ app.post('/', upload.any(), function(req,res){
           c=1;
         }
   
+        console.log(req.files[0]);
+
+        if(req.files[0] == null)
+        {
+          images1 = '';
+        }
+        else{
+          images1 = req.files[0].filename;
+        }
+
+        if(req.files[1] == null)
+        {
+          images2 = '';
+        }
+        else{
+          images2 = req.files[1].filename;
+        }
+
         if(req.files[2] == null)
         {
           images3 = '';
@@ -76,7 +94,7 @@ app.post('/', upload.any(), function(req,res){
         else{
           images3 = req.files[2].filename;
         }
-  
+
         var product = new Product({
   
           unique_id:c,
@@ -86,8 +104,8 @@ app.post('/', upload.any(), function(req,res){
           category: req.body.category,
           sold: false,
           buyer: String,
-          image1:req.files[0].filename,
-          image2:req.files[1].filename,
+          image1:images1,
+          image2:images2,
           image3:images3,
           seller: req.body.user,
         });
