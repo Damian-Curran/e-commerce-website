@@ -97,4 +97,11 @@ router.get('/get/:user', function(req, res, next) {
 	});
   });
 
+  // reset password
+router.post('/reset/:username', function(req, res){
+	User.createToken(req.params.username, function(err){
+		
+	});
+});
+
 module.exports = router;

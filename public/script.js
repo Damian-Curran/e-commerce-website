@@ -22,6 +22,10 @@ angular.module('app', ['ngRoute', 'ngResource'])
       templateUrl: '/views/logout.ejs',
       controller: 'logoutController'
     })
+    .when('/password', {
+      templateUrl: '/views/password.ejs',
+      controller: 'passwordController'
+    })
     .when('/viewBasket', {
       templateUrl: '/views/basket.ejs',
       controller: 'basketController'

@@ -24,6 +24,9 @@ var UserSchema = mongoose.Schema({
 	},
 	county: {
 		type: String
+	},
+	token: {
+		type: String
 	}
 });
 
@@ -34,6 +37,17 @@ module.exports.createUser = function(newUser, callback){
 	    bcrypt.hash(newUser.password, salt, function(err, hash) {
 	        newUser.password = hash;
 	        newUser.save(callback);
+	    });
+	});
+}
+
+module.exports.createToken = function(username, callback){
+	bcrypt.genSalt(10, function(err, salt) {
+	    bcrypt.hash(username, salt, function(err, hash) {
+			var token = hash;
+	        User.findOneAndUpdate({username: username}, {$set: {token: token}}, function(resp){
+				callback(null, null);
+			});
 	    });
 	});
 }
