@@ -1,30 +1,37 @@
 angular.module('app')
-.controller('ProductDetailCtrl', ['$scope', '$routeParams', 'Products', '$location', 'Basket', 'indexService', function ($scope, $routeParams, Products, $location, Basket, indexService) {
-    $scope.product = Products.get({id: $routeParams.id });
-    
+  .controller('ProductDetailCtrl', ['$scope', '$routeParams', 'Products', '$location', 'Basket', 'indexService', function ($scope, $routeParams, Products, $location, Basket, indexService) {
+    //get details of product clicked on
+    $scope.product = Products.get({ id: $routeParams.id });
+
+    //gets current user logged in
     var user = indexService.user;
-  
-    var basket = new Basket({username: user, product: $routeParams.id});
-  
-    $scope.basket = function(){
-      Basket.save(basket, function(){
+
+    //create basket object 
+    var basket = new Basket({ username: user, product: $routeParams.id });
+
+    //saves basket object in collection
+    $scope.basket = function () {
+      Basket.save(basket, function () {
       });
     }
-  
-    $scope.update = function(){
-      Products.update({id: $scope.product.post._id}, $scope.product.post, function(){
+
+    //updates product with changed values
+    $scope.update = function () {
+      Products.update({ id: $scope.product.post._id }, $scope.product.post, function () {
         $location.url('/');
       });
     }
 
-    $scope.delete = function(){
-      Products.delete({id: $scope.product.post._id}, $scope.product.post, function(){
+    //deltes product
+    $scope.delete = function () {
+      Products.delete({ id: $scope.product.post._id }, $scope.product.post, function () {
         $location.url('/');
       });
     }
-  
-    $scope.modal = function(src){
+
+    //opens modal to view image
+    $scope.modal = function (src) {
       $scope.imageSrc = "/uploads/" + src;
     }
-  
+
   }])

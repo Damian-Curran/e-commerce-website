@@ -1,60 +1,66 @@
 angular.module('app')
-.controller('ProductController', ['$scope', '$routeParams', 'Products', '$location', '$resource', 'ViewProducts', function ($scope, $routeParams, Products, $location, $resource, ViewProducts) {
-  $scope.filter = false;
-  $scope.editing = [];
-  $scope.currentPage = 1;
+  //dependancy injection
+  .controller('ProductController', ['$scope', '$routeParams', 'Products', '$location', '$resource', 'ViewProducts', function ($scope, $routeParams, Products, $location, $resource, ViewProducts) {
+    //a few scopes used for different page features
+    $scope.filter = false;
+    $scope.currentPage = 1;
 
-  var productCount = $resource('/products/count/');
-  var categorySearch = $resource('/products/:size/:page/:category/:min/:max/:search');
+    //resources for product functions
+    var productCount = $resource('/products/count/');
+    var categorySearch = $resource('/products/:size/:page/:category/:min/:max/:search');
 
-  var min = $routeParams.min;
-  var max = $routeParams.max;
-  var search = $routeParams.searchfor;
-  var category = $routeParams.category;
+    //variables holding some on route paramaters
+    var min = $routeParams.min;
+    var max = $routeParams.max;
+    var search = $routeParams.searchfor;
+    var category = $routeParams.category;
 
-  if($routeParams.min == null)
-  {
-    min = 0;
-  }
+    //checks against condition null for each variable
+    if ($routeParams.min == null) {
+      min = 0;
+    }
 
-  if($routeParams.max == null)
-  {
-    max = 0;
-  }
+    if ($routeParams.max == null) {
+      max = 0;
+    }
 
-  if($routeParams.searchfor == null)
-  {
-    search = 0;
-  }
+    if ($routeParams.searchfor == null) {
+      search = 0;
+    }
 
-  if($routeParams.category == null)
-  {
-    $scope.filter = true;
-    category = 0;
-  }
+    if ($routeParams.category == null) {
+      $scope.filter = true;
+      category = 0;
+    }
 
-  productCount.save({category: category, min: min, max: max, search: search}, function(counted)
-  {
-    $scope.pages = Math.ceil(counted.count/15);
-  });
+    //counts products with the search paramaters
+    productCount.save({ category: category, min: min, max: max, search: search }, function (counted) {
+      //math calculation to round up(for pagination, cant say there is 3.2 pages)
+      $scope.pages = Math.ceil(counted.count / 15);
+    });
 
-  $scope.previous = function()
-  {
-    $scope.currentPage -= 1;
-    //$scope.products = ViewProducts.query({size: 15, page: $scope.currentPage-1});
-    $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: category, min: min, max: max, search: search});
-  }
+    //handles pagination for previous
+    $scope.previous = function () {
+      //sets current page to -1 of current page
+      $scope.currentPage -= 1;
+      //queries products collection
+      $scope.products = categorySearch.query({ size: 15, page: $scope.currentPage - 1, category: category, min: min, max: max, search: search });
+    }
 
-  $scope.next = function()
-  {
-    $scope.currentPage += 1;
-    //$scope.products = ViewProducts.query({size: 1, page: $scope.currentPage-1});
-    $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: category, min: min, max: max, search: search});
-  }
+    //handles pagination for next
+    $scope.next = function () {
+      //adds 1 to current page
+      $scope.currentPage += 1;
+      //queries products collection
+      $scope.products = categorySearch.query({ size: 15, page: $scope.currentPage - 1, category: category, min: min, max: max, search: search });
+    }
 
-  $scope.products = categorySearch.query({size: 15, page: $scope.currentPage-1, category: category, min: min, max: max, search: search});
+    //queries product collection with selected paramaters
+    $scope.products = categorySearch.query({ size: 15, page: $scope.currentPage - 1, category: category, min: min, max: max, search: search });
 
-  $scope.go = function(index){
-    $location.url('/product/' + index);
-  }
-}])
+    //goes to product detail controller which inspects a single product
+    //switches view
+    $scope.go = function (index) {
+      $location.url('/product/' + index);
+    }
+  }])

@@ -1,6 +1,10 @@
 angular.module('app')
-.controller('logoutController', ['$scope', '$routeParams', '$location', 'Users', 'indexService', 'Authentication', function ($scope, $routeParams, $location, Users, indexService, Authentication) {
+  //dependancy injection
+  .controller('logoutController', ['indexService', 'Authentication', function (indexService, Authentication) {
+    //gets stored token
     var stored = Authentication.get_token();
+    //sets service variable to empty
     indexService.user = '';
+    //deletes token
     Authentication.delete_token(stored);
   }])

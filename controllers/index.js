@@ -1,123 +1,126 @@
 angular.module('app')
-.controller('indexCtrl', ['$scope', '$routeParams', '$location', 'indexService', 'Authentication', function ($scope, $routeParams, $location, indexService, Authentication) {
+  //dependancy injection
+  .controller('indexCtrl', ['$scope', '$location', 'indexService', 'Authentication', function ($scope, $location, indexService, Authentication) {
+    //get current signed in user
     var stored = Authentication.get_token();
-    if(stored != null)
-    {
+    //if there is a user
+    if (stored != null) {
+      //set user to service
       indexService.user = stored;
     }
+    //give service scope to page
     $scope.template = indexService;
-  
+
+    //categories for select menu
     $scope.categories = ["Electronics", "Gaming", "Farm", "Literature"];
-  
-    $scope.search = function(x)
-    {
+
+    //search function for search box on index page
+    $scope.search = function (x) {
       var query = '';
-  
-      if($scope.category != null)
-      query += $scope.category;
-  
-      query += ('?searchfor=' + x);
-  
-      $location.url(query);
-    }
-  
-    $scope.selectCategory = function(x)
-    {
-      var query = x;
-  
-      $location.url(query);
-    }
-  
-    $scope.select = function()
-    {
-      var query = '';
-  
-      if($scope.category != null)
+
+      //checks if category is also selected
+      if ($scope.category != null)
         query += $scope.category;
-  
-      if($scope.min != null)
-        query += ('?min=' + $scope.min);
-  
-      if($scope.max != null)
-        query += ('&max=' + $scope.max);
-  
+
+      query += ('?searchfor=' + x);
+
       $location.url(query);
     }
-  
-    $scope.login = function(){
+
+    //category selected
+    $scope.selectCategory = function (x) {
+      var query = x;
+
+      //passes query to product controller where more will happen there
+      $location.url(query);
+    }
+
+    //function for hasChanged property of min and max prices
+    $scope.select = function () {
+      var query = '';
+
+      if ($scope.category != null)
+        query += $scope.category;
+
+      if ($scope.min != null)
+        query += ('?min=' + $scope.min);
+
+      if ($scope.max != null)
+        query += ('&max=' + $scope.max);
+
+      $location.url(query);
+    }
+
+    //some routing for login
+    $scope.login = function () {
       $location.url('/login');
     }
-  
-    $scope.logout = function(){
+
+    $scope.logout = function () {
       $location.url('/logout');
     }
-  
-    $scope.basket = function(){
-      if(indexService.user != '')
-      {
+
+    //some condition checking against user logged in or not
+    $scope.basket = function () {
+      if (indexService.user != '') {
         $location.url('/viewBasket');
       }
-      else{
-        $location.url('/login');
-      }
-    }
-  
-    $scope.soldItems = function(){
-      if(indexService.user != '')
-      {
-        $location.url('/userProducts' + "?sold");
-      }
-      else{
-        $location.url('/login');
-      }
-    }
-  
-    $scope.boughtItems = function(){
-      if(indexService.user != '')
-      {
-        $location.url('/userProducts' + "?bought");
-      }
-      else{
+      else {
         $location.url('/login');
       }
     }
 
-    $scope.sellingItems = function(){
-      if(indexService.user != '')
-      {
+    $scope.soldItems = function () {
+      if (indexService.user != '') {
+        $location.url('/userProducts' + "?sold");
+      }
+      else {
+        $location.url('/login');
+      }
+    }
+
+    $scope.boughtItems = function () {
+      if (indexService.user != '') {
+        $location.url('/userProducts' + "?bought");
+      }
+      else {
+        $location.url('/login');
+      }
+    }
+
+    $scope.sellingItems = function () {
+      if (indexService.user != '') {
         $location.url('/userProducts' + "?selling");
       }
-      else{
+      else {
         $location.url('/login');
       }
     }
-  
-    $scope.creditCard = function(){
+
+    $scope.creditCard = function () {
       $location.url('/createCard');
     }
-  
-    $scope.editUser = function(){
-      if(indexService.user != '')
-      {
+
+    $scope.editUser = function () {
+      if (indexService.user != '') {
         $location.url('/editUser');
       }
-      else{
+      else {
         $location.url('/login');
       }
     }
-    $scope.createItem = function(){
-      if(indexService.user != '')
-      {
+    $scope.createItem = function () {
+      if (indexService.user != '') {
         $location.url('/createItem');
       }
-      else{
+      else {
         $location.url('/login');
       }
     }
-    $scope.register = function(){
+    $scope.register = function () {
       $location.url('/register');
     }
-    $scope.home = function(){
+    $scope.home = function () {
       $location.url('/');
     }
   }])
