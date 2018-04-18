@@ -30,6 +30,21 @@ angular.module('app')
       $location.url(query);
     }
 
+    $scope.select = function () {
+      var query = '';
+
+      if ($scope.category != null)
+        query += $scope.category;
+
+      if ($scope.min != null)
+        query += ('?min=' + $scope.min);
+
+      if ($scope.max != null)
+        query += ('&max=' + $scope.max);
+
+        $location.url(query);
+    }
+
     //category selected
     $scope.selectCategory = function (x) {
       var query = x;
