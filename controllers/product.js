@@ -31,6 +31,9 @@ angular.module('app')
     var search = $routeParams.searchfor;
     var category = $routeParams.category;
 
+    $scope.search = $routeParams.searchfor;
+    search = $scope.search;
+
     $scope.min = $routeParams.min;
     $scope.max = $routeParams.max;
 
