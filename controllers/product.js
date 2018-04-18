@@ -12,10 +12,10 @@ angular.module('app')
       if ($scope.category != null)
         query += $scope.category;
 
-      if ($scope.min != null)
+      if ($scope.min != null && $scope.min != '')
         query += ('?min=' + $scope.min);
 
-      if ($scope.max != null)
+      if ($scope.max != null  && $scope.max != '')
         query += ('&max=' + $scope.max);
 
         $location.url(query);
@@ -33,7 +33,6 @@ angular.module('app')
 
     $scope.search = $routeParams.searchfor;
     search = $scope.search;
-
     $scope.min = $routeParams.min;
     $scope.max = $routeParams.max;
 
