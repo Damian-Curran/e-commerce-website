@@ -92,6 +92,7 @@ router.post('/', function(req, res){
 			//calls function from model to create user
 			User.createUser(newUser, function(err, user){
 				if(err) throw err;
+				res.json();
 			});
 		}
 		else{

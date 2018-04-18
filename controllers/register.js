@@ -21,6 +21,14 @@ angular.module('app')
           $scope.err2 = true;
           $scope.showError2 = "Username already registered";
         }
+
+        console.log(err.usernameDup);
+        console.log(err.emailDup);
+
+        if(err.usernameDup == null && err.emailDup == null)
+        {
+          $location.url('/login');
+        }
       });
     }
   }])

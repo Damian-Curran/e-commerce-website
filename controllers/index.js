@@ -23,7 +23,7 @@ angular.module('app')
         query += $scope.category;
 
       query += ('?searchfor=' + x);
-
+      
       $location.url(query);
     }
 
