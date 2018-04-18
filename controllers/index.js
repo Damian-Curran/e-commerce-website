@@ -22,7 +22,10 @@ angular.module('app')
       if ($scope.category != null)
         query += $scope.category;
 
-      query += ('?searchfor=' + x);
+        if(x != '' && x != null)
+        {
+          query += ('?searchfor=' + x);
+        }
 
       $location.url(query);
     }

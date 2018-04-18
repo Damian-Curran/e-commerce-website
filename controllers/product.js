@@ -21,8 +21,6 @@ angular.module('app')
         $location.url(query);
     }
 
-    console.log(query);
-
     //resources for product functions
     var productCount = $resource('/products/count/');
     var categorySearch = $resource('/products/:size/:page/:category/:min/:max/:search');
