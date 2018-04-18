@@ -132,7 +132,7 @@ router.post('/reset/:username', function(req, res){
 				//create email object
 				var email = {
 					from: 'Localhost Staff, staff@localhost.com',
-					to: "sgt.curren@gmail.com",
+					to: result[0].email,
 					subject: 'Localhost Reset Password Request',
 					text: 'Hello ' + result[0].name + ', You recently request a password reset link. Please click on the link below to reset your password:<br><br><a href="http://localhost:3000/#/reset/' + result[0].token,
 					html: 'Hello<strong> ' + result[0].name + '</strong>,<br><br>You recently request a password reset link. Please click on the link below to reset your password:<br><br><a href="http://localhost:3000/#/reset/' + result[0].token + '">http://localhost:3000/#/reset/</a>'
