@@ -4,6 +4,24 @@ angular.module('app')
     //a few scopes used for different page features
     $scope.filter = false;
     $scope.currentPage = 1;
+    var query = '';
+    //function for hasChanged property of min and max prices
+    $scope.select = function () {
+      var query = '';
+
+      if ($scope.category != null)
+        query += $scope.category;
+
+      if ($scope.min != null)
+        query += ('?min=' + $scope.min);
+
+      if ($scope.max != null)
+        query += ('&max=' + $scope.max);
+
+        $location.url(query);
+    }
+
+    console.log(query);
 
     //resources for product functions
     var productCount = $resource('/products/count/');

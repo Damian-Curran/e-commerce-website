@@ -23,7 +23,7 @@ angular.module('app')
         query += $scope.category;
 
       query += ('?searchfor=' + x);
-      
+
       $location.url(query);
     }
 
@@ -32,22 +32,6 @@ angular.module('app')
       var query = x;
 
       //passes query to product controller where more will happen there
-      $location.url(query);
-    }
-
-    //function for hasChanged property of min and max prices
-    $scope.select = function () {
-      var query = '';
-
-      if ($scope.category != null)
-        query += $scope.category;
-
-      if ($scope.min != null)
-        query += ('?min=' + $scope.min);
-
-      if ($scope.max != null)
-        query += ('&max=' + $scope.max);
-
       $location.url(query);
     }
 
